@@ -38,36 +38,50 @@ button{font:inherit;cursor:pointer}
 .menuov .foot{margin-top:auto;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--sub)}
 
 .wrap{max-width:1060px;margin:0 auto;padding:0 18px}
-.view{padding-bottom:70px}
+.view{padding-bottom:40px}
 
 /* ---------- HOME ---------- */
-.hero{display:flex;gap:18px;align-items:center;padding:26px 0 20px}
+.hero{display:flex;gap:18px;align-items:center;padding:22px 0 20px}
 .herotext{flex:1;min-width:0}
-.hero .free{margin-bottom:14px}
-.hero h1{font-size:clamp(24px,6.8vw,34px);line-height:1.05;letter-spacing:-.03em;font-weight:600}
-.hero .lede{font-size:14px;color:var(--sub);margin-top:12px;line-height:1.45;max-width:34ch}
-.hero .cta{margin-top:18px;background:var(--acc);color:#fff;border:none;padding:13px 24px;border-radius:2px;font-size:15px;font-weight:600;letter-spacing:.01em}
-.herostage{flex:0 0 auto}
-.herostage .reelbox{width:38vw;max-width:158px}
-@media(min-width:821px){.hero{gap:40px;padding:44px 0 28px}.herostage .reelbox{width:220px;max-width:220px}}
-.frame{padding:10px;background:#fff;border:1px solid var(--line);box-shadow:0 24px 60px -26px rgba(40,30,20,.5)}
+.hero .free{margin-bottom:13px}
+.hero h1{font-size:clamp(25px,7.2vw,42px);line-height:1.02;letter-spacing:-.03em;font-weight:600}
+.hero .lede{font-size:14px;color:var(--sub);margin-top:12px;line-height:1.46;max-width:34ch}
+.hero .cta{margin-top:18px;background:var(--acc);color:#fff;border:none;padding:13px 24px;border-radius:3px;font-size:15px;font-weight:600;letter-spacing:.01em;box-shadow:0 10px 22px -10px rgba(214,72,47,.6)}
+.herostage{flex:0 0 auto;position:relative}
+.herostage .reelbox{width:40vw;max-width:172px}
+.frame{padding:9px;background:#fff;border:1px solid var(--line);box-shadow:0 28px 66px -28px rgba(40,30,20,.6);position:relative;z-index:2}
+.herostage:before{content:"";display:none;position:absolute;top:14px;left:50%;transform:translateX(-42%) rotate(-5deg);width:80%;height:96%;background:#fff;border:1px solid var(--line);box-shadow:0 20px 44px -26px rgba(40,30,20,.5);z-index:1}
 .reelbox{position:relative;width:270px;aspect-ratio:9/16;overflow:hidden;background:#111}
-.rule{height:1px;background:var(--line);margin:30px 0}
-.sec-h{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px}
-.formats{display:flex;flex-direction:column;gap:14px}
-.fcard{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);padding:12px;border-radius:3px;text-align:left;width:100%}
-.fcard .pv{position:relative;width:74px;aspect-ratio:9/16;flex:0 0 auto;overflow:hidden;background:#111;border-radius:2px}
+.rule{height:1px;background:var(--line);margin:18px 0}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px}
+.sec-h .eyd{font-size:12.5px;color:var(--sub)}
+.formats{display:grid;grid-template-columns:1fr;gap:11px}
+.fcard{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);padding:11px;border-radius:8px;text-align:left;width:100%;transition:box-shadow .2s ease,transform .2s ease,border-color .2s ease}
+.fcard .pv{position:relative;width:80px;aspect-ratio:9/16;flex:0 0 auto;overflow:hidden;background:#111;border-radius:4px}
 .fcard .meta{flex:1;min-width:0}
 .fcard .meta b{font-size:18px;font-weight:600;letter-spacing:-.01em;display:block}
 .fcard .meta span{font-size:13px;color:var(--sub);display:block;margin-top:3px}
 .fcard .meta .tag{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin-top:8px}
-.fcard.soon{opacity:.6}
+.fcard.soon{opacity:.5}
 .fcard .go{font-family:var(--mono);font-size:18px;color:var(--ink);padding-right:6px}
-.steps{display:flex;flex-direction:column;gap:2px}
-.step{display:flex;gap:16px;align-items:baseline;padding:14px 0;border-top:1px solid var(--line)}
+.steps{display:grid;grid-template-columns:1fr;gap:0}
+.step{display:flex;gap:14px;align-items:baseline;padding:12px 0;border-top:1px solid var(--line)}
 .step .n{font-family:var(--mono);font-size:12px;color:var(--acc);width:26px;flex:0 0 auto}
-.step .tx{font-size:17px;font-weight:500;letter-spacing:-.01em}
-.step .tx small{display:block;font-weight:400;font-size:13px;color:var(--sub);margin-top:3px;letter-spacing:0}
+.step .tx{font-size:16px;font-weight:500;letter-spacing:-.01em}
+.step .tx small{display:block;font-weight:400;font-size:13px;color:var(--sub);margin-top:3px;letter-spacing:0;line-height:1.4}
+@media(min-width:821px){
+ .hero{gap:40px;padding:30px 0 26px;align-items:center;max-width:864px;margin:0 auto}
+ .herotext{flex:1}
+ .hero h1{font-size:43px}
+ .hero .lede{font-size:15px;max-width:40ch}
+ .herostage:before{display:block}
+ .herostage .reelbox{width:252px;max-width:252px}
+ .rule{margin:26px 0}
+ .formats{grid-template-columns:repeat(3,1fr);gap:16px}
+ .steps{grid-template-columns:repeat(3,1fr);gap:0}
+ .step{border-top:none;border-left:1px solid var(--line);padding:2px 0 2px 18px}
+}
+@media(hover:hover){.fcard{cursor:pointer}.fcard:hover{transform:translateY(-3px);border-color:#d8cfbe;box-shadow:0 22px 46px -28px rgba(40,30,20,.55)}}
 .footer{margin-top:36px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);display:flex;gap:16px;flex-wrap:wrap}
 
 /* ---------- GALLERY ---------- */
@@ -424,14 +438,14 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
       <div class="herostage"><div class="frame"><div class="reelbox" id="homeReel"></div></div></div>
     </div>
     <div class="rule"></div>
-    <div class="sec-h"><div class="eye">What are you making?</div></div>
+    <div class="sec-h"><div class="eye">What are you making?</div><div class="eyd">15 styles &middot; 6 concepts</div></div>
     <div class="formats" id="formats"></div>
     <div class="rule"></div>
-    <div class="sec-h"><div class="eye">How it works</div></div>
+    <div class="sec-h"><div class="eye">How it works</div><div class="eyd">About a minute</div></div>
     <div class="steps">
-      <div class="step"><div class="n">01</div><div class="tx">Pick a style<small>Folio, Nocturne or Prism. You can switch anytime, no retyping.</small></div></div>
-      <div class="step"><div class="n">02</div><div class="tx">Add your listing photos<small>From your camera roll. Label the rooms, fill the details.</small></div></div>
-      <div class="step"><div class="n">03</div><div class="tx">Post it, add your music<small>Screen record it, drop it on Instagram, add a track.</small></div></div>
+      <div class="step"><div class="n">01</div><div class="tx">Pick a style<small>15 styles across 6 concepts &mdash; Editorial, Kinetic, Story and more. Switch anytime, no retyping.</small></div></div>
+      <div class="step"><div class="n">02</div><div class="tx">Add your listing photos<small>Straight from your camera roll. Label the rooms, fill the details.</small></div></div>
+      <div class="step"><div class="n">03</div><div class="tx">Post it, add your music<small>Screen record, drop it on Instagram, add a track. Done.</small></div></div>
     </div>
     <div class="footer"><div class="fbrand">PropSight · Studio</div><div class="flinks"><button type="button" data-open="howto">How to save &amp; post</button><button type="button" data-open="about">About</button><a href="https://propsight.sg">PropSight.sg</a></div><div class="fnote">Free for every Singapore agent · Made by PropSight</div></div>
   </div>
