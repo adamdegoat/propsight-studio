@@ -1,0 +1,38 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1200px;height:630px;overflow:hidden}
+body{background:#ece7dd;font-family:'Helvetica Neue',Arial,sans-serif;position:relative;display:flex;align-items:center}
+.grain{position:absolute;inset:0;opacity:.5;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E")}
+.wrap{position:relative;z-index:2;display:flex;width:100%;height:100%;align-items:center;padding:0 72px}
+.left{flex:1;padding-right:20px}
+.brand{display:flex;align-items:center;gap:13px;margin-bottom:38px}
+.mark{width:38px;height:38px;border-radius:9px;background:#d6482f;display:grid;place-items:center}
+.mark svg{width:22px;height:22px}
+.bt{font-size:27px;font-weight:800;letter-spacing:-.01em;color:#1a1a17}
+.bt span{font-weight:600;letter-spacing:.16em;font-size:15px;color:#7c766c;margin-left:8px}
+h1{font-size:64px;line-height:.98;letter-spacing:-.035em;font-weight:800;color:#1a1a17}
+.sub{font-size:23px;line-height:1.4;color:#5f584c;margin-top:24px;max-width:19ch;font-weight:400}
+.meta{display:flex;gap:10px;margin-top:34px;align-items:center}
+.pill{font-size:14px;font-weight:700;letter-spacing:.02em;color:#fff;background:#d6482f;padding:9px 16px;border-radius:999px;white-space:nowrap}
+.pill2{font-size:14px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#6b6459;border:1px solid #cdc3b2;padding:8px 15px;border-radius:999px;font-family:ui-monospace,Menlo,monospace;white-space:nowrap}
+.phones{flex:0 0 auto;position:relative;width:430px;height:600px}
+.ph{position:absolute;width:272px;height:483px;background:#fff;border-radius:28px;padding:10px;box-shadow:0 44px 84px -28px rgba(40,30,20,.62)}
+.p1{top:52px;left:118px;transform:rotate(6deg);z-index:2}
+.p2{top:26px;left:20px;transform:rotate(-7deg);z-index:1}
+.scr{width:100%;height:100%;border-radius:19px;overflow:hidden;background:#111}
+.scr img{width:100%;height:100%;object-fit:cover;display:block}
+</style></head><body>
+<div class="grain"></div>
+<div class="wrap">
+  <div class="left">
+    <div class="brand"><div class="mark"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="none" stroke="#fff" stroke-width="2.4"/><circle cx="12" cy="12" r="1.7" fill="#fff"/></svg></div><div class="bt">PropSight<span>STUDIO</span></div></div>
+    <h1>Real estate videos,<br>created instantly.</h1>
+    <div class="sub">Turn your listing photos into scroll-stopping reels for Instagram.</div>
+    <div class="meta"><div class="pill">Free for a limited time</div><div class="pill2">Growing library</div></div>
+  </div>
+  <div class="phones">
+    <div class="ph p2"><div class="scr"><img src="ogr_light.jpg"></div></div>
+    <div class="ph p1"><div class="scr"><img src="ogr_dark.jpg"></div></div>
+  </div>
+</div>
+</body></html>
