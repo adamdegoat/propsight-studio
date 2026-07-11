@@ -191,6 +191,13 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
 .fb .b-tour .ph::after{content:"";position:absolute;left:0;right:0;bottom:0;height:36%;background:linear-gradient(transparent,rgba(6,10,16,.74));pointer-events:none}
 .fb .b-facts .ph::after{content:"";position:absolute;left:0;right:0;top:38%;bottom:0;background:linear-gradient(transparent,rgba(6,10,16,.5) 30%,rgba(6,10,16,.9) 60%);pointer-events:none}
 .fb .rg{mix-blend-mode:screen;opacity:.06}
+.brandchip{position:absolute;right:13px;top:13px;z-index:6;display:flex;align-items:center;gap:7px;padding:4px 11px 4px 4px;border-radius:999px;background:rgba(12,15,19,.44);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);box-shadow:0 1px 7px rgba(0,0,0,.30);max-width:74%;transition:opacity .4s;font-family:'Schibsted Grotesk',-apple-system,system-ui,Segoe UI,sans-serif;pointer-events:none}
+.brandchip.noav{padding-left:13px}
+.brandchip .bcav{width:26px;height:26px;border-radius:50%;overflow:hidden;flex:0 0 auto;background:rgba(255,255,255,.14)}
+.brandchip .bcav img{width:100%;height:100%;object-fit:cover;display:block}
+.brandchip .bctx{display:flex;flex-direction:column;line-height:1.14;min-width:0;padding-right:3px}
+.brandchip .bctx b{font-size:11.5px;font-weight:600;color:#fff;letter-spacing:.004em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brandchip .bctx i{font-size:9.5px;font-style:normal;color:rgba(255,255,255,.74);letter-spacing:.05em;white-space:nowrap}
 .reel{--paper:#eef1f2;--rk:#16222e;--rmid:#5b6b76;--rline:#cfd6d9;--rac:#88a596;--fgf:saturate(1.05) contrast(1.03) brightness(1.01);--bgf:blur(16px) brightness(.97) saturate(1.06)}
 .reel.tmpl-nocturne{--paper:#0b1a29;--rk:#ffffff;--rmid:#d3e2e9;--rline:rgba(255,255,255,.32);--rac:#9ee0ea;--fgf:saturate(1.05) contrast(1.04) brightness(1.0);--bgf:blur(16px) brightness(.45) saturate(.9)}
 .reel.tmpl-prism{--paper:#0d1220;--rk:#ffffff;--rmid:#c6edf2;--rline:rgba(255,255,255,.3);--rac:#59e6ef;--fgf:saturate(1.08) contrast(1.05) brightness(1.0);--bgf:blur(16px) brightness(.4) saturate(.7)}
@@ -299,6 +306,10 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
 .apv{width:52px;height:52px;border-radius:50%;overflow:hidden;background:var(--card);border:1px solid var(--line);flex:0 0 auto}
 .apv img{width:100%;height:100%;object-fit:cover;transform-origin:center;display:block}
 .apbtn{border:1px solid var(--line);background:#fff;color:var(--ink);font-size:13px;font-weight:600;padding:9px 14px;border-radius:8px}
+.samplebtn{display:block;margin:10px auto 2px;background:none;border:0;color:var(--sub);font-size:13px;font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px 10px}
+.samplebtn:hover{color:var(--ink)}
+.brandtog{display:flex;align-items:center;gap:8px;margin-top:6px;font-size:12.5px;color:var(--sub);cursor:pointer;user-select:none}
+.brandtog input{width:16px;height:16px;accent-color:#d6402a;flex:0 0 auto}
 .cropov{position:fixed;inset:0;z-index:80;background:rgba(26,20,14,.6);display:flex;align-items:center;justify-content:center;padding:24px}
 .cropov[hidden]{display:none}
 .cropcard{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:20px;width:100%;max-width:340px;display:flex;flex-direction:column;gap:16px;align-items:center}
@@ -592,6 +603,7 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
         <div class="sec"><div class="lbl">1 · Photos &amp; rooms</div>
           <div class="drop" id="drop"><b>Add photos</b><span>Tap to pick from your camera roll · 3–15 · first is the cover</span></div>
           <input type="file" id="file" accept="image/*" multiple hidden>
+          <button class="samplebtn" id="sampleBtn" type="button">Use sample photos</button>
           <div class="thumbs" id="thumbs"></div>
           <div class="hint" id="phint">No photos yet. Tap a photo after adding to set the cover or label the room.</div>
           <div class="agentphoto"><div class="apv" id="apv"></div><button class="apbtn" id="apAdd" type="button">Add your photo</button><span class="aphint">Your headshot &mdash; shows on the end card</span><input type="file" id="apFile" accept="image/*" hidden></div>
@@ -605,6 +617,7 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
         <div class="sec"><div class="lbl">4 · You</div><div class="stack">
           <input class="i" id="f_name" placeholder="Your name">
           <div class="grid2"><input class="i" id="f_cea" placeholder="CEA Reg. no."><input class="i" id="f_phone" placeholder="Phone"></div>
+          <label class="brandtog"><input type="checkbox" id="f_brand" checked><span>Show my name &amp; CEA on every frame</span></label>
         </div></div>
       </div>
       <div class="epreview">
@@ -789,6 +802,18 @@ function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
 function pad(n){return (n<10?'0':'')+n;}
 function phInner(src,mat){return '<div class="phm" style="background:'+(mat||'var(--paper)')+'"></div><div class="bg" style="background-image:url('+src+')"></div><div class="fg" style="background-image:url('+src+')"></div>';}
 
+// Beats that show the persistent brand chip: full-bleed photo/tour beats only.
+// Any opener / price / stat / CTA beat is omitted so the chip never collides with
+// title text or the end-card contact block. Unknown kinds default to hidden.
+var BRANDBEATS={tour:1,sroom:1,kflash:1,rhero:1,rshot:1,spdetail:1,pcshot:1,mfeat:1,lreason:1};
+function brandChip(sp,f){
+  if(!sp||!sp.brand||!f) return '';
+  var nm=(f.name||'').trim(); if(!nm) return '';
+  var ap=f.agentPhoto, av=ap&&ap.src;
+  var avh=av?'<span class="bcav"><img src="'+av+'" style="object-position:'+(ap.ox==null?50:ap.ox)+'% '+(ap.oy==null?50:ap.oy)+'%;transform:scale('+(ap.z||1)+')"></span>':'';
+  var cea=f.cea?'<i>CEA '+esc(f.cea)+'</i>':'';
+  return '<div class="brandchip'+(av?'':' noav')+'">'+avh+'<span class="bctx"><b>'+esc(nm)+'</b>'+cea+'</span></div>';
+}
 function buildBeats(spec){
   var P=spec.photos||[]; var f=spec.fields||{}, cat=spec.category||'listing', concept=spec.concept||'editorial'; var _cap=CAPS[concept]||[MINP,MAXP]; if(P.length<_cap[0]) return {beats:[],total:0}; P=P.slice(0,_cap[1]);
   var beats=[],t=0,bi=0;
@@ -1073,12 +1098,14 @@ function Reel(box,opts){
   var st={beats:[],total:0,cues:[],raf:null,t0:null,playing:false,tmpl:skin,concept:concept};
   function getSpec(){var sp=(typeof opts.spec==='function'?opts.spec():opts.spec)||{};sp.concept=concept;return sp;}
   function build(){
-    var r=buildBeats(getSpec()); st.beats=r.beats; st.total=r.total; st.fields=r.fields||{};
+    var sp=getSpec();
+    var r=buildBeats(sp); st.beats=r.beats; st.total=r.total; st.fields=r.fields||{};
     cancelAnimationFrame(st.raf); st.playing=false; reel.classList.remove('playing');
     if(!st.beats.length){ reel.innerHTML='<div class="emptyR"><b>Your reel previews here</b>Add at least '+capFor().min+(capFor().min===1?' photo':' photos')+'</div><div class="rg"></div>'; if(opts.onmeta)opts.onmeta(null); return; }
     var html=''; st.beats.forEach(function(b){html+=beatDOM(b,st.fields);});
+    html+=brandChip(sp,st.fields);
     html+='<div class="rg"></div>'+(opts.showPlay?'<div class="pov"><div class="povc"></div></div>':'');
-    reel.innerHTML=html; st.cues=[].slice.call(reel.querySelectorAll('[data-cue]'));
+    reel.innerHTML=html; st.cues=[].slice.call(reel.querySelectorAll('[data-cue]')); st.chip=reel.querySelector('.brandchip');
     if(opts.onmeta){var _sp={};st.beats.forEach(function(b){if(b.src)_sp[b.src]=1;(b.grid||[]).forEach(function(g){if(g.src)_sp[g.src]=1;});});opts.onmeta({photos:Object.keys(_sp).length,total:st.total});}
     fit();
     if(opts.autoplay!==false) play();
@@ -1088,6 +1115,7 @@ function Reel(box,opts){
     var els=reel.querySelectorAll('.beat');
     for(var j=0;j<st.beats.length;j++){if(els[j])els[j].classList.toggle('show',j===ai);}
     var b=st.beats[ai],p=Math.min(1,Math.max(0,(t-b.s)/b.dur));
+    if(st.chip)st.chip.style.opacity=(b&&BRANDBEATS[b.kind])?'':'0';
     var cur=els[ai], bg=cur&&cur.querySelector('.bg'), fg=cur&&cur.querySelector('.fg'); var mo=MOTION[st.tmpl]||{kb:.06,ken:'in'};if(bg){var bt;if(mo.ken==='panx')bt='scale(1.24) translateX('+(5*(0.5-p)).toFixed(2)+'%)';else if(mo.ken==='pany')bt='scale(1.24) translateY('+(5*(0.5-p)).toFixed(2)+'%)';else if(mo.ken==='out')bt='scale('+(1.12+0.14*p).toFixed(3)+')';else if(mo.ken==='static')bt='scale(1.13)';else bt='scale('+(1.12+0.14*(1-p)).toFixed(3)+')';bg.style.transform=bt;}if(fg){var fa=(mo.ken==='static')?0:0.02;var fs=(mo.ken==='out')?(1+fa*p):(1+fa*(1-p));fg.style.transform='scale('+fs.toFixed(4)+')';}
     st.cues.forEach(function(el){var be=el.closest('.beat');el.classList.toggle('in', be===cur&&t>=parseFloat(el.dataset.cue));});
     if(cur){var cnts=cur.querySelectorAll('.count');if(cnts.length){var cp=Math.min(1,p/0.62);cp=1-Math.pow(1-cp,3);for(var k=0;k<cnts.length;k++){var c=cnts[k],to=parseFloat(c.getAttribute('data-to'))||0;c.textContent=(c.getAttribute('data-prefix')||'')+fmtNum(to*cp,c.getAttribute('data-fmt'))+(c.getAttribute('data-suffix')||'');}}}
@@ -1103,7 +1131,7 @@ function Reel(box,opts){
 }
 
 /* ---------- app state + router ---------- */
-var S={photos:[],f:{},format:'listing',template:'folio'};
+var S={photos:[],f:{},format:'listing',template:'folio',brand:true};
 var homeR=null, editR=null, tmplReels=[], presentR=null, homePvReels=[];
 /* heat guard: a preview reel animates only when it is BOTH in the active view (_eligible) and on screen (_vis) and the tab is visible */
 function syncReel(r){if(!r||!r.st)return;var on=r._eligible&&r._vis!==false&&!document.hidden;if(on){if(!r.st.playing)r.play();}else{if(r.st.playing)r.pause();}}
@@ -1190,7 +1218,7 @@ function openGallery(){
 }
 
 /* editor */
-function editorSpec(){return {photos:S.photos,fields:S.f,category:S.format};}
+function editorSpec(){return {photos:S.photos,fields:S.f,category:S.format,brand:S.brand!==false};}
 function buildEditor(){
   editR=Reel(el('editReel'),{template:S.template,spec:editorSpec,showPlay:true,
     onmeta:function(m){var _c=capFor();var _sp=document.querySelector('#drop span');if(_sp)_sp.textContent=_c.min===_c.max?('Tap to add \u00b7 this style uses '+_c.max+(_c.max===1?' photo':' photos')):('Tap to add \u00b7 '+_c.min+'\u2013'+_c.max+' photos \u00b7 first is the cover');el('eReadout').textContent=m?((S.photos.length>m.photos?(m.photos+' of '+S.photos.length+' photos shown \u00b7 '):(m.photos+(m.photos===1?' photo \u00b7 ':' photos \u00b7 ')))+m.total.toFixed(0)+'s'):(S.photos.length+' / '+_c.min+(_c.min===1?' photo needed':' photos needed'));setPresentReady(!!m);},
@@ -1229,6 +1257,7 @@ function openEditor(){renderFields(S.format);mountEditReel();renderStyleSwitch()
 /* file input */
 el('drop').onclick=function(){el('file').click();};
 el('file').onchange=function(){addFiles(el('file').files);el('file').value='';};
+(function(){var _sb=el('sampleBtn');if(_sb)_sb.onclick=function(){S.photos=DEMO.map(function(d){return {src:d.src,w:d.w,h:d.h,room:d.room||'',id:Math.random().toString(36).slice(2)};});afterPhotos();};var _fb=el('f_brand');if(_fb)_fb.onchange=function(){S.brand=_fb.checked;if(editR)editR.build();};})();
 function resizeImg(dataUrl,maxW,cb){var img=new Image();img.onload=function(){var w=img.naturalWidth,h=img.naturalHeight;var scale=Math.min(1,maxW/Math.max(w,h));var cw=Math.round(w*scale),ch=Math.round(h*scale);var c=document.createElement('canvas');c.width=cw;c.height=ch;c.getContext('2d').drawImage(img,0,0,cw,ch);cb(c.toDataURL('image/jpeg',0.85),w,h);};img.onerror=function(){cb(null);};img.src=dataUrl;}
 function addFiles(files){var arr=[].slice.call(files),left=arr.length;if(!arr.length)return;
   arr.forEach(function(file){var fr=new FileReader();fr.onload=function(){resizeImg(fr.result,1600,function(small,w,h){if(small)S.photos.push({src:small,w:w,h:h,room:'',id:Math.random().toString(36).slice(2)});if(--left===0)afterPhotos();});};fr.readAsDataURL(file);});}
@@ -1241,7 +1270,7 @@ function attachThumb(d,i){
   d.addEventListener('pointerup',end);
   d.addEventListener('pointercancel',function(){if(drag){drag.el.style.transform='';drag.el.classList.remove('dragging');}drag=null;renderThumbs();});
 }
-function renderThumbs(){var t=el('thumbs');t.innerHTML='';
+function renderThumbs(){var t=el('thumbs');t.innerHTML='';var _sb=el('sampleBtn');if(_sb)_sb.style.display=S.photos.length?'none':'';
   S.photos.forEach(function(p,i){var d=document.createElement('div');d.className='thumb'+(i===0?' cover':'')+(!p.room&&i!==0?' needl':'');
     d.innerHTML='<img src="'+p.src+'">'+(i===0?'<span class="cv">Cover</span>':'')+(p.room?'<span class="rl">'+p.room+'</span>':'');
     attachThumb(d,i);t.appendChild(d);});
