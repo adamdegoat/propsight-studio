@@ -213,6 +213,7 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
 .reel.tmpl-cobalt{--paper:#f2f4f7;--rk:#10131a;--rmid:#5a6472;--rline:#dbe0e8;--rac:#2b4cff;--fgf:saturate(1.06) contrast(1.04) brightness(1.01);--bgf:blur(16px) brightness(1.0) saturate(1.06);--disp:'Archivo',-apple-system,sans-serif}
 .reel.tmpl-clay{--paper:#d8ccbe;--rk:#33261d;--rmid:#7d6a58;--rline:rgba(51,38,29,.18);--rac:#2f6f66;--fgf:saturate(1.05) contrast(1.03) brightness(1.0);--bgf:blur(16px) brightness(.96) saturate(1.04)}
 .reel.tmpl-oxford{--paper:#eef0ea;--rk:#16233f;--rmid:#5f6b80;--rline:#d4dae2;--rac:#b08d3c;--fgf:saturate(1.05) contrast(1.03) brightness(1.01);--bgf:blur(16px) brightness(1.0) saturate(1.04);--disp:'Newsreader',Georgia,serif}
+.reel.tmpl-dossier{--paper:#15181d;--rk:#f7f4ee;--rmid:#aeb4bf;--rline:rgba(247,244,238,.24);--rac:#d8b25c;--fgf:saturate(1.04) contrast(1.04) brightness(1.0);--bgf:blur(16px) brightness(.44) saturate(.9);--disp:'Newsreader',Georgia,serif}
 .tmpl-slate .beat{transition:opacity .55s ease,transform .6s cubic-bezier(.22,.72,.24,1);transform:translateX(-18px)}.tmpl-slate .beat.show{transform:translateX(0)}
 .tmpl-volt .beat{transition:opacity .2s ease,transform .32s cubic-bezier(.2,.9,.3,1.3);transform:scale(1.06)}.tmpl-volt .beat.show{transform:scale(1)}
 .tmpl-ember .beat{transition:opacity .7s ease,transform .85s cubic-bezier(.2,.7,.25,1);transform:scale(1.05)}.tmpl-ember .beat.show{transform:scale(1)}
@@ -708,6 +709,7 @@ var TPL=[
  {id:'signal',name:'Signal',desc:'Electric reveal',concept:'reveal',skin:'cobalt'},
  {id:'column',name:'Column',desc:'Editorial list',concept:'list',skin:'press'},
  {id:'kraft',name:'Kraft',desc:'Warm clay list',concept:'list',skin:'clay'},
+ {id:'dossier',name:'Dossier',desc:'Dark editorial list',concept:'list',skin:'dossier'},
  {id:'beam',name:'Beam',desc:'Electric spotlight',concept:'spotlight',skin:'cobalt'},
  {id:'gallery',name:'Gallery',desc:'Heritage spotlight',concept:'spotlight',skin:'oxford'},
  {id:'cabin',name:'Cabin',desc:'Forest postcard',concept:'postcard',skin:'cedar'},
@@ -1062,7 +1064,7 @@ function mosaicDOM(b,f,s){var inner='';
 }
 function Reel(box,opts){
   var TP=TPLby(opts.template||'folio'), skin=TP.skin, concept=TP.concept;
-  var reel=document.createElement('div'); reel.className='reel tmpl-'+skin+' cc-'+concept+(['nocturne','prism','atlas','noir','vivid','volt','cedar'].indexOf(skin)>=0?' fb':'');
+  var reel=document.createElement('div'); reel.className='reel tmpl-'+skin+' cc-'+concept+(['nocturne','prism','atlas','noir','vivid','volt','cedar','dossier'].indexOf(skin)>=0?' fb':'');
   box.innerHTML=''; box.appendChild(reel);
   function fit(){var w=box.clientWidth||300;reel.style.transform='scale('+(w/300)+')';}
   var _ro=null; fit(); if(window.ResizeObserver){try{_ro=new ResizeObserver(fit);_ro.observe(box);}catch(e){}}
@@ -1197,7 +1199,7 @@ function buildEditor(){
 var MUSIC={folio:'calm piano · soft lofi',nocturne:'cinematic ambient · moody piano',prism:'upbeat electronic · future bass',aurora:'warm acoustic · sunset chill',atlas:'bold hip-hop · trap beat',coast:'chill house · summer vibes',noir:'jazz noir · smooth sax',bloom:'dreamy indie · soft pop',mono:'minimal beat · clean electronic',vivid:'energetic pop · club beat'};
 function setMusicHint(t){var e=el('musicHint');if(e)e.innerHTML='<span class="mm">On Instagram, search music:</span> '+(MUSIC[t]||'calm piano');}
 function mountEditReel(){editR=Reel(el('editReel'),{template:S.template,spec:editorSpec,showPlay:true,onmeta:function(m){el('eReadout').textContent=m?(m.photos+(m.photos===1?' photo · ':' photos · ')+m.total.toFixed(0)+'s'):(S.photos.length+' / '+MINP+' photos needed');setPresentReady(!!m);},onprog:function(p){el('eProg').style.width=(p*100)+'%';}});el('ePlay').textContent='Pause';setMusicHint(S.template);}
-var SKINCOL={folio:['#eef1f2','#88a596'],nocturne:['#0b1a29','#9ee0ea'],prism:['#0d1220','#59e6ef'],aurora:['#f3ece1','#c0894a'],atlas:['#111110','#e8e8e8'],coast:['#eef3f6','#6a93b0'],noir:['#14120f','#c8a24a'],bloom:['#f3ebe6','#c06a4a'],mono:['#f4f4f2','#131313'],vivid:['#16121c','#ff5c8a'],slate:['#e8edf1','#4d7290'],volt:['#0b0d09','#c9fa36'],ember:['#1b1310','#e3794a'],fresh:['#eef6f1','#1f9d6d'],cedar:['#16241c','#d98a5b'],press:['#f4f1e8','#a8322a'],cobalt:['#f2f4f7','#2b4cff'],clay:['#d8ccbe','#2f6f66'],oxford:['#eef0ea','#b08d3c']};
+var SKINCOL={folio:['#eef1f2','#88a596'],nocturne:['#0b1a29','#9ee0ea'],prism:['#0d1220','#59e6ef'],aurora:['#f3ece1','#c0894a'],atlas:['#111110','#e8e8e8'],coast:['#eef3f6','#6a93b0'],noir:['#14120f','#c8a24a'],bloom:['#f3ebe6','#c06a4a'],mono:['#f4f4f2','#131313'],vivid:['#16121c','#ff5c8a'],slate:['#e8edf1','#4d7290'],volt:['#0b0d09','#c9fa36'],ember:['#1b1310','#e3794a'],fresh:['#eef6f1','#1f9d6d'],cedar:['#16241c','#d98a5b'],press:['#f4f1e8','#a8322a'],cobalt:['#f2f4f7','#2b4cff'],clay:['#d8ccbe','#2f6f66'],oxford:['#eef0ea','#b08d3c'],dossier:['#15181d','#d8b25c']};
 function swSwatch(sk){var c=SKINCOL[sk]||['#dddddd','#888888'];return '<span class="swsw" style="background:'+c[0]+'"><i style="background:'+c[1]+'"></i></span>';}
 function centerH(box,el){if(!box||!el)return;var go=function(){if(box.clientWidth){box.scrollLeft=Math.max(0,el.offsetLeft-box.clientWidth/2+el.offsetWidth/2);}else{setTimeout(go,60);}};go();}
 function renderStyleSwitch(){var fm=fmtById(S.format);var box=el('styleSwitch');box.innerHTML='';
