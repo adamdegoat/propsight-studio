@@ -512,12 +512,12 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
       <div class="herostage"><div class="frame"><div class="reelbox" id="homeReel"></div></div></div>
     </div>
     <div class="rule"></div>
-    <div class="sec-h"><div class="eye">What are you making?</div><div class="eyd">15 styles &middot; 6 concepts</div></div>
+    <div class="sec-h"><div class="eye">What are you making?</div><div class="eyd" id="scount">25 styles &middot; 9 concepts</div></div>
     <div class="formats" id="formats"></div>
     <div class="rule"></div>
     <div class="sec-h"><div class="eye">How it works</div><div class="eyd">About a minute</div></div>
     <div class="steps">
-      <div class="step"><div class="n">01</div><div class="tx">Pick a style<small>15 styles across 6 concepts &mdash; Editorial, Kinetic, Story and more. Switch anytime, no retyping.</small></div></div>
+      <div class="step"><div class="n">01</div><div class="tx">Pick a style<small id="scopy">25 styles across 9 concepts &mdash; Editorial, Kinetic, Story and more. Switch anytime, no retyping.</small></div></div>
       <div class="step"><div class="n">02</div><div class="tx">Add your listing photos<small>Straight from your camera roll. Label the rooms, fill the details.</small></div></div>
       <div class="step"><div class="n">03</div><div class="tx">Post it, add your music<small>Screen record, drop it on Instagram, add a track. Done.</small></div></div>
     </div>
@@ -1023,6 +1023,9 @@ el('menuCls').onclick=function(){el('menu').classList.add('hidden');};
 
 /* home */
 function buildHome(){
+  var _ns=TPL.length,_nc=CONCEPT_ORDER.length;
+  if(el('scount'))el('scount').innerHTML=_ns+' styles · '+_nc+' concepts';
+  if(el('scopy'))el('scopy').innerHTML=_ns+' styles across '+_nc+' concepts — Editorial, Kinetic, Story and more. Switch anytime, no retyping.';
   homeR=Reel(el('homeReel'),{template:'noir',autoplay:false,spec:previewSpec(2,'listing')});observeReel(el('homeReel'),homeR);
   var box=el('formats');box.innerHTML='';
   FORMATS.forEach(function(fm){
