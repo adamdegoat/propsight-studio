@@ -161,7 +161,8 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
 .present{position:fixed;inset:0;height:100dvh;z-index:70;background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
 .present[hidden]{display:none}
 .present .stageP{position:relative;width:min(100vw,calc(100dvh*0.5625));aspect-ratio:9/16;overflow:hidden;background:#000}
-.present .exit{position:absolute;top:12px;left:14px;z-index:8;color:#fff;font-family:var(--mono);font-size:12px;background:rgba(255,255,255,.14);border:none;padding:6px 12px;border-radius:999px}
+.present .exit{position:absolute;top:15px;left:15px;z-index:8;display:inline-flex;align-items:center;gap:6px;color:#161616;font-family:var(--mono);font-size:14px;font-weight:700;background:rgba(255,255,255,.94);border:none;padding:11px 18px 11px 15px;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.45)}
+.present .exit:active{background:#fff}
 .present.recording .exit{display:none}
 .pover{position:absolute;inset:0;z-index:7;background:rgba(9,9,9,.9);display:flex;align-items:center;justify-content:center;padding:26px}
 .pover[hidden]{display:none}
@@ -173,6 +174,8 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
 .povsteps b{color:#fff;font-weight:600}
 .povbtn{margin-top:28px;background:#d6482f;color:#fff;border:none;padding:15px 34px;border-radius:999px;font-size:16px;font-weight:600}
 .povbtn.light{background:#fff;color:#0a0a0a}
+.povbtn.ghost{background:none;color:#cfc8ba;border:1px solid rgba(255,255,255,.28);padding:13px 28px;font-size:14px;margin-top:12px}
+.povbtn.ghost:active{background:rgba(255,255,255,.08)}
 .povnote{margin-top:16px;font-size:12px;color:#9a948a;line-height:1.45}
 .povcheck{width:56px;height:56px;border-radius:50%;background:#3ea06b;color:#fff;font-size:28px;display:grid;place-items:center;margin:0 auto 18px}
 .pcount{position:absolute;inset:0;z-index:7;display:flex;align-items:center;justify-content:center;background:rgba(9,9,9,.5);pointer-events:none}
@@ -644,6 +647,7 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
     <div class="povk">Stop your screen recording</div>
     <div class="povnote">It&rsquo;s saved to Photos. Post it to Instagram and add a music track.</div>
     <button class="povbtn light" id="pReplay">Record again</button>
+    <button class="povbtn ghost" id="pDoneBack">Back to editing</button>
   </div></div>
 </div>
 
@@ -1209,7 +1213,8 @@ function pRun(){
 }
 el('pStart').onclick=function(){pRun();};
 el('pReplay').onclick=function(){pRun();};
-el('pExit').onclick=function(){pClearTimer();try{if(document.fullscreenElement)document.exitFullscreen();}catch(e){}if(presentR)presentR.pause();el('present').classList.remove('recording');el('present').hidden=true;if(currentView==='editor'&&editR)editR.play();};
+function closePresent(){pClearTimer();try{if(document.fullscreenElement)document.exitFullscreen();}catch(e){}if(presentR)presentR.pause();el('present').classList.remove('recording');el('present').hidden=true;if(currentView==='editor'&&editR)editR.play();}
+el('pExit').onclick=closePresent;el('pDoneBack').onclick=closePresent;
 
 /* boot */
 buildHome();
