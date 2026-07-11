@@ -6,19 +6,19 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://studio.propsight.sg/">
 <meta property="og:site_name" content="PropSight Studio">
-<meta property="og:title" content="PropSight Studio — Real estate videos, created instantly">
+<meta property="og:title" content="PropSight Studio: Real estate videos, created instantly">
 <meta property="og:description" content="Turn your listing photos into scroll-stopping reels for Instagram. Tap Save and your video is ready in seconds. New styles added regularly. Free for a limited time.">
 <meta property="og:image" content="https://studio.propsight.sg/og.jpg?v=3">
 <meta property="og:image:secure_url" content="https://studio.propsight.sg/og.jpg?v=3">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="PropSight Studio — real estate reel maker">
+<meta property="og:image:alt" content="PropSight Studio, real estate reel maker">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="PropSight Studio — Real estate videos, created instantly">
+<meta name="twitter:title" content="PropSight Studio: Real estate videos, created instantly">
 <meta name="twitter:description" content="Turn your listing photos into scroll-stopping reels for Instagram. New styles added regularly. Free for a limited time.">
 <meta name="twitter:image" content="https://studio.propsight.sg/og.jpg?v=3">
-<title>PropSight Studio — Real estate videos, created instantly</title>
+<title>PropSight Studio: Real estate videos, created instantly</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -607,7 +607,7 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
     <div class="editor">
       <div class="epanel">
         <div class="sec"><div class="lbl">1 · Photos &amp; rooms</div>
-          <div class="drop" id="drop"><b>Add photos</b><span>Tap to pick from your camera roll · 3–15 · first is the cover</span></div>
+          <div class="drop" id="drop"><b>Add photos</b><span>Tap to pick from your camera roll · 3-15 · first is the cover</span></div>
           <input type="file" id="file" accept="image/*" multiple hidden>
           <button class="samplebtn" id="sampleBtn" type="button">Use sample photos</button>
           <div class="thumbs" id="thumbs"></div>
@@ -740,7 +740,7 @@ var TPL=[
  {id:'kiln',name:'Kiln',desc:'Warm clay grid',concept:'mosaic',skin:'clay'}
 ];
 var CONCEPTS={editorial:'Editorial',kinetic:'Kinetic',story:'Story',numbers:'By the Numbers',reveal:'The Reveal',list:'The Shortlist',spotlight:'Spotlight',postcard:'Postcard',mosaic:'Mosaic'};
-var CONCEPT_DESC={editorial:'Calm, premium listing film',kinetic:'Fast, punchy, scroll-stopping',story:'Cinematic, emotional walkthrough',numbers:'Data-driven, animated stats',reveal:'A hook, then a dramatic reveal',list:'Numbered reasons — made to save & share',spotlight:'One hero, minimal & luxe',postcard:'A postcard, sent from the listing',mosaic:'The whole home, at a glance'};
+var CONCEPT_DESC={editorial:'Calm, premium listing film',kinetic:'Fast, punchy, scroll-stopping',story:'Cinematic, emotional walkthrough',numbers:'Data-driven, animated stats',reveal:'A hook, then a dramatic reveal',list:'Numbered reasons, made to save & share',spotlight:'One hero, minimal & luxe',postcard:'A postcard, sent from the listing',mosaic:'The whole home, at a glance'};
 var CONCEPT_ORDER=['editorial','kinetic','story','numbers','reveal','list','spotlight','postcard','mosaic'];
 function TPLby(id){for(var i=0;i<TPL.length;i++){if(TPL[i].id===id)return TPL[i];}return TPL[0];}
 function ctxLabel(){var fm=fmtById(S.format)||{};var tp=TPLby(S.template);return (fm.name||'')+' / '+CONCEPTS[tp.concept]+' · '+tp.name;}
@@ -1186,7 +1186,7 @@ el('menuCls').onclick=function(){el('menu').classList.add('hidden');};
 function buildHome(){
   var _ns=TPL.length,_nc=CONCEPT_ORDER.length;
   if(el('scount'))el('scount').innerHTML=FORMATS.filter(function(f){return f.active;}).length+' formats · '+_ns+' styles';
-  if(el('scopy'))el('scopy').innerHTML=_ns+' styles across '+_nc+' concepts — Editorial, Kinetic, Story and more. Switch anytime, no retyping.';
+  if(el('scopy'))el('scopy').innerHTML=_ns+' styles across '+_nc+' concepts. Editorial, Kinetic, Story and more. Switch anytime, no retyping.';
   homeR=Reel(el('homeReel'),{template:'noir',autoplay:false,spec:previewSpec(2,'listing')});observeReel(el('homeReel'),homeR);
   var box=el('formats');box.innerHTML='';
   FORMATS.forEach(function(fm){
@@ -1318,7 +1318,7 @@ function setRecordSteps(){
   }else{
     var mac=/Mac/.test(ua);
     steps=['Start a screen recording &mdash; '+(mac?'<b>Shift + Cmd + 5</b>':'<b>Win + Alt + R</b>')+' &mdash; and capture this video','Tap <b>Play once</b>','It plays through once &mdash; then stop your recording'];
-    note='Easiest on your phone — open studio.propsight.sg there and screen-record for a clean full-screen capture. Tap the screen anytime to stop.';
+    note='Easiest on your phone: open studio.propsight.sg there and screen-record for a clean full-screen capture. Tap the screen anytime to stop.';
   }
   var ol=el('povSteps'); if(ol)ol.innerHTML=steps.map(function(s){return '<li>'+s+'</li>';}).join('');
   var nt=el('povNote'); if(nt)nt.innerHTML=note;
@@ -1395,7 +1395,7 @@ window.__setFields=function(f){Object.keys(f).forEach(function(k){S.f[k]=f[k];va
 
 </script>
 <script>/* export-fast.js */
-// FAST export (layered): bake each beat as TWO images once —
+// FAST export (layered): bake each beat as TWO images once;
 //   P = photo/base layer (does the Ken Burns zoom),  T = text+scrim+chip overlay (stays static).
 // Then composite per frame on a canvas (zoom P, hold T, crossfade between beats) -> WebCodecs -> MP4.
 window.exportReelFast = async function(boxId, opts){
@@ -1510,7 +1510,7 @@ window.exportReelFast = async function(boxId, opts){
 
 </script>
 <script>/* glue-prod.js */
-// PropSight Studio — one-tap video export (production). Hooks the real "Save your video"
+// PropSight Studio one-tap video export (production). Hooks the real "Save your video"
 // button; on browsers without WebCodecs it silently falls back to the screen-record flow.
 (function(){
   if(window.__psExport) return; window.__psExport=true;
