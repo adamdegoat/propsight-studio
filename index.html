@@ -1125,14 +1125,14 @@ function openGallery(){
 function editorSpec(){return {photos:S.photos,fields:S.f,category:S.format};}
 function buildEditor(){
   editR=Reel(el('editReel'),{template:S.template,spec:editorSpec,showPlay:true,
-    onmeta:function(m){el('eReadout').textContent=m?(m.photos+(m.photos===1?' photo · ':' photos · ')+m.total.toFixed(0)+'s'):(S.photos.length+' / '+MINP+' photos needed');},
+    onmeta:function(m){el('eReadout').textContent=m?(m.photos+(m.photos===1?' photo · ':' photos · ')+m.total.toFixed(0)+'s'):(S.photos.length+' / '+MINP+' photos needed');setPresentReady(!!m);},
     onprog:function(p){el('eProg').style.width=(p*100)+'%';}});
   el('ePlay').onclick=function(){editR.toggle();el('ePlay').textContent=editR.st.playing?'Pause':'Play';};
   el('editReel').onclick=function(){editR.toggle();el('ePlay').textContent=editR.st.playing?'Pause':'Play';};
 }
 var MUSIC={folio:'calm piano · soft lofi',nocturne:'cinematic ambient · moody piano',prism:'upbeat electronic · future bass',aurora:'warm acoustic · sunset chill',atlas:'bold hip-hop · trap beat',coast:'chill house · summer vibes',noir:'jazz noir · smooth sax',bloom:'dreamy indie · soft pop',mono:'minimal beat · clean electronic',vivid:'energetic pop · club beat'};
 function setMusicHint(t){var e=el('musicHint');if(e)e.innerHTML='<span class="mm">On Instagram, search music:</span> '+(MUSIC[t]||'calm piano');}
-function mountEditReel(){editR=Reel(el('editReel'),{template:S.template,spec:editorSpec,showPlay:true,onmeta:function(m){el('eReadout').textContent=m?(m.photos+(m.photos===1?' photo · ':' photos · ')+m.total.toFixed(0)+'s'):(S.photos.length+' / '+MINP+' photos needed');},onprog:function(p){el('eProg').style.width=(p*100)+'%';}});el('ePlay').textContent='Pause';setMusicHint(S.template);}
+function mountEditReel(){editR=Reel(el('editReel'),{template:S.template,spec:editorSpec,showPlay:true,onmeta:function(m){el('eReadout').textContent=m?(m.photos+(m.photos===1?' photo · ':' photos · ')+m.total.toFixed(0)+'s'):(S.photos.length+' / '+MINP+' photos needed');setPresentReady(!!m);},onprog:function(p){el('eProg').style.width=(p*100)+'%';}});el('ePlay').textContent='Pause';setMusicHint(S.template);}
 function renderStyleSwitch(){var fm=fmtById(S.format);var box=el('styleSwitch');box.innerHTML='';
   var curConcept=TPLby(S.template).concept;
   var tabs=document.createElement('div');tabs.className='swtabs';
@@ -1194,7 +1194,8 @@ el('sheet').onclick=function(e){if(e.target===el('sheet'))el('sheet').hidden=tru
 var dt=null;function rebD(){clearTimeout(dt);dt=setTimeout(function(){if(editR)editR.build();},250);}
 
 /* present */
-el('toPresent').onclick=function(){openPresent();};
+function setPresentReady(ok){var b=el('toPresent');if(!b)return;b.disabled=!ok;b.style.opacity=ok?'':'.45';b.style.cursor=ok?'':'not-allowed';b.textContent=ok?'Save your video':'Add '+MINP+' photos to save';}
+el('toPresent').onclick=function(){if(!S.photos||S.photos.length<MINP){setPresentReady(false);return;}openPresent();};
 var pTimer=null;
 function pClearTimer(){if(pTimer){clearTimeout(pTimer);pTimer=null;}}
 function openPresent(){
@@ -1205,6 +1206,7 @@ function openPresent(){
   el('pPrep').hidden=false;el('pCount').hidden=true;el('pDone').hidden=true;
 }
 function pRun(){
+  if(!presentR||!presentR.st||!presentR.st.beats.length){el('present').classList.remove('recording');el('pPrep').hidden=false;return;}
   pClearTimer();
   el('pPrep').hidden=true;el('pDone').hidden=true;el('present').classList.add('recording');el('pCount').hidden=false;
   var n=3;el('pCountN').textContent=n;
