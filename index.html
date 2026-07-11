@@ -368,10 +368,10 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
 .cc-kinetic .ph::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(6,8,14,.42),rgba(6,8,14,.04) 32%,rgba(6,8,14,.72))}
 .cc-kinetic .kwrap{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;justify-content:flex-end;padding:0 20px 30px}
 .cc-kinetic .kh{justify-content:center;align-items:flex-start}
-.cc-kinetic .khl{font-family:var(--disp);font-weight:800;font-size:47px;line-height:.9;letter-spacing:-.02em;text-transform:uppercase;color:var(--rk)}
+.cc-kinetic .khl{font-family:var(--disp);font-weight:800;font-size:47px;line-height:.9;letter-spacing:-.02em;text-transform:uppercase;color:var(--rk);text-shadow:0 2px 20px rgba(0,0,0,.5)}
 .cc-kinetic .khs{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--rmid);margin-top:14px}
 .cc-kinetic .kf{align-items:flex-start}
-.cc-kinetic .kfb{font-family:var(--disp);font-weight:800;font-size:60px;line-height:.86;letter-spacing:-.03em;color:var(--rk)}
+.cc-kinetic .kfb{font-family:var(--disp);font-weight:800;font-size:60px;line-height:.86;letter-spacing:-.03em;color:var(--rk);text-shadow:0 2px 20px rgba(0,0,0,.5)}
 .cc-kinetic .kfs{font-family:var(--mono);font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--rac);margin-top:9px}
 .cc-kinetic .kslamov{position:absolute;inset:0;z-index:3;background:linear-gradient(180deg,rgba(8,8,12,.48),rgba(8,8,12,.84))}
 .cc-kinetic .ksl{justify-content:center;align-items:center;text-align:center}
@@ -387,6 +387,9 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
 /* ===== STORY (cinematic full-bleed) ===== */
 .cc-story .ph{position:absolute;inset:0}
 .cc-story .scin{position:absolute;inset:0;z-index:3;background:linear-gradient(180deg,rgba(6,7,10,.5),transparent 20%,transparent 58%,rgba(6,7,10,.86));box-shadow:inset 0 42px 30px -30px rgba(0,0,0,.7),inset 0 -42px 30px -30px rgba(0,0,0,.7)}
+.b-shook .scin{background:linear-gradient(180deg,rgba(6,7,10,.5),transparent 24%,transparent 56%,rgba(6,7,10,.86)),radial-gradient(ellipse 92% 44% at 50% 50%,rgba(6,7,10,.62),rgba(6,7,10,0) 72%)}
+.khscrim{position:absolute;inset:0;z-index:3;background:radial-gradient(ellipse 104% 58% at 40% 50%,rgba(8,8,12,.6),rgba(8,8,12,.12) 74%),linear-gradient(180deg,rgba(8,8,12,.34),transparent 42%,rgba(8,8,12,.42))}
+.kfscrim{position:absolute;inset:0;z-index:3;background:linear-gradient(180deg,rgba(8,8,12,.14),transparent 34%,rgba(8,8,12,.68))}
 .cc-story .swrap{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;justify-content:flex-end;padding:0 26px 34px}
 .cc-story .sh{justify-content:center;align-items:center;text-align:center}
 .cc-story .shl{font-family:var(--disp);font-weight:400;font-size:29px;line-height:1.24;color:#f5f2ec;text-shadow:0 2px 24px rgba(0,0,0,.55)}
@@ -887,9 +890,9 @@ function beatDOM(b,f){
 function avatarHTML(f,s){return (f.agentPhoto&&f.agentPhoto.src)?'<div class="ctav rise" data-cue="'+(s+0.04)+'"><img src="'+f.agentPhoto.src+'" style="object-position:'+f.agentPhoto.ox+'% '+f.agentPhoto.oy+'%;transform:scale('+f.agentPhoto.z+')"></div>':'';}
 function kineticDOM(b,f,s){var inner='';
  if(b.kind==='khook'){
-   inner='<div class="ph">'+phInner(b.src,b.mat)+'</div><div class="kwrap kh"><div class="khl pop" data-cue="'+(s+0.04)+'">'+esc(upc(b.label))+'</div>'+(b.sub?'<div class="khs pop" data-cue="'+(s+0.22)+'">'+esc(b.sub)+'</div>':'')+'</div>';
+   inner='<div class="ph">'+phInner(b.src,b.mat)+'</div><div class="khscrim"></div><div class="kwrap kh"><div class="khl pop" data-cue="'+(s+0.04)+'">'+esc(upc(b.label))+'</div>'+(b.sub?'<div class="khs pop" data-cue="'+(s+0.22)+'">'+esc(b.sub)+'</div>':'')+'</div>';
  }else if(b.kind==='kflash'){
-   inner='<div class="ph">'+phInner(b.src,b.mat)+'</div><div class="kwrap kf">'+(b.big?'<div class="kfb pop" data-cue="'+(s+0.03)+'">'+esc(b.big)+'</div>':'')+(b.small?'<div class="kfs pop" data-cue="'+(s+0.12)+'">'+esc(upc(b.small))+'</div>':'')+'</div>';
+   inner='<div class="ph">'+phInner(b.src,b.mat)+'</div><div class="kfscrim"></div><div class="kwrap kf">'+(b.big?'<div class="kfb pop" data-cue="'+(s+0.03)+'">'+esc(b.big)+'</div>':'')+(b.small?'<div class="kfs pop" data-cue="'+(s+0.12)+'">'+esc(upc(b.small))+'</div>':'')+'</div>';
  }else if(b.kind==='kslam'){
    inner='<div class="ph">'+phInner(b.src,b.mat)+'</div><div class="kslamov"></div><div class="kwrap ksl">'+(b.price?'<div class="ksp pop" data-cue="'+(s+0.05)+'">'+esc(b.price)+'</div>':'')+(b.sub?'<div class="kss pop" data-cue="'+(s+0.28)+'">'+esc(b.sub)+'</div>':'')+'</div>';
  }else{
