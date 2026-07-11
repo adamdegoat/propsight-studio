@@ -648,7 +648,7 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
     <div class="povk">Record your reel</div>
     <ol class="povsteps"><li>Open Control Centre and tap the <b>screen-record</b> circle</li><li>Come back here, tap <b>Play once</b></li><li>It plays through once &mdash; then stop your recording</li></ol>
     <button class="povbtn" id="pStart">Play once</button>
-    <div class="povnote">Your screen recording saves straight to Photos, ready to post to Instagram.</div>
+    <div class="povnote">Your screen recording saves straight to Photos, ready to post to Instagram. Tap the screen anytime to stop.</div>
   </div></div>
   <div class="pcount" id="pCount" hidden><span id="pCountN">3</span></div>
   <div class="pover pdone" id="pDone" hidden><div class="povin">
@@ -658,6 +658,7 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
     <button class="povbtn light" id="pReplay">Record again</button>
     <button class="povbtn ghost" id="pDoneBack">Back to editing</button>
   </div></div>
+  <div class="pover pdone" id="pPaused" hidden><div class="povin"><div class="povk">Paused</div><div class="povnote">Stopped part-way. Play it again from the start, or tap Back to edit.</div><button class="povbtn" id="pResume">Play again</button></div></div>
 </div>
 
 <!-- MODALS -->
@@ -1269,18 +1270,20 @@ function openPresent(){
   try{var pv=el('present');if(pv.requestFullscreen)pv.requestFullscreen().catch(function(){});}catch(e){}
   presentR=Reel(el('presentStage'),{template:S.template,spec:editorSpec,once:true,autoplay:false,
     onend:function(){el('present').classList.remove('recording');el('pDone').hidden=false;}});
-  el('pPrep').hidden=false;el('pCount').hidden=true;el('pDone').hidden=true;
+  el('pPrep').hidden=false;el('pCount').hidden=true;el('pDone').hidden=true;el('pPaused').hidden=true;
 }
 function pRun(){
   if(!presentR||!presentR.st||!presentR.st.beats.length){el('present').classList.remove('recording');el('pPrep').hidden=false;return;}
   pClearTimer();
-  el('pPrep').hidden=true;el('pDone').hidden=true;el('present').classList.add('recording');el('pCount').hidden=false;
+  el('pPrep').hidden=true;el('pDone').hidden=true;el('pPaused').hidden=true;el('present').classList.add('recording');el('pCount').hidden=false;
   var n=3;el('pCountN').textContent=n;
   function step(){n--;if(n<=0){el('pCount').hidden=true;if(presentR){presentR.st.t0=null;presentR.play();}return;}el('pCountN').textContent=n;pTimer=setTimeout(step,750);}
   pTimer=setTimeout(step,750);
 }
 el('pStart').onclick=function(){pRun();};
 el('pReplay').onclick=function(){pRun();};
+el('present').addEventListener('click',function(e){if(!el('present').classList.contains('recording'))return;if(e.target.closest&&e.target.closest('button'))return;pClearTimer();if(presentR)presentR.pause();el('present').classList.remove('recording');el('pCount').hidden=true;el('pPrep').hidden=true;el('pDone').hidden=true;el('pPaused').hidden=false;});
+el('pResume').onclick=function(){el('pPaused').hidden=true;pRun();};
 function closePresent(){pClearTimer();try{if(document.fullscreenElement)document.exitFullscreen();}catch(e){}if(presentR)presentR.pause();el('present').classList.remove('recording');el('present').hidden=true;if(currentView==='editor'&&editR)editR.play();}
 el('pExit').onclick=closePresent;el('pDoneBack').onclick=closePresent;
 
