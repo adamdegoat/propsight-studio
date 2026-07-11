@@ -347,12 +347,15 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
 .phm{position:absolute;inset:0;z-index:0}
 .pop{opacity:0;transform:translateY(9px) scale(.965);transition:opacity .34s cubic-bezier(.2,.9,.3,1.2),transform .4s cubic-bezier(.2,.9,.3,1.28)}
 .pop.in{opacity:1;transform:none}
+.ctav{width:90px;height:90px;border-radius:50%;overflow:hidden;margin-bottom:18px;box-shadow:0 8px 22px rgba(0,0,0,.28);flex:0 0 auto}
+.ctav img{width:100%;height:100%;object-fit:cover;display:block}
 /* ===== editorial matted print (framed skins only) ===== */
 .cc-editorial:not(.fb) .ph{background:var(--paper);box-shadow:inset 0 0 0 1px var(--rline)}
 .cc-editorial:not(.fb) .ph .bg{display:none}
 .cc-editorial:not(.fb) .b-cover .fg{background-position:center 34%}
 .cc-editorial .ecard{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 30px}
-.cc-editorial .ecard>div{position:static;left:auto;right:auto;top:auto;bottom:auto;width:auto}
+.cc-editorial .ecard>div{position:static;left:auto;right:auto;top:auto;bottom:auto}
+.cc-editorial .ecard .eavatar{width:104px;height:104px;flex:0 0 auto}
 .cc-editorial .eavatar{width:104px;height:104px;border-radius:50%;overflow:hidden;margin-bottom:20px;box-shadow:0 6px 22px rgba(20,16,10,.18);border:2px solid var(--rline)}
 .cc-editorial .eavatar img{width:100%;height:100%;object-fit:cover}
 .cc-editorial .eaddr{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--rmid)}
@@ -880,6 +883,7 @@ function beatDOM(b,f){
   }
   return '<div class="beat b-'+b.kind+'" data-id="'+b.id+'">'+inner+'</div>';
 }
+function avatarHTML(f,s){return (f.agentPhoto&&f.agentPhoto.src)?'<div class="ctav rise" data-cue="'+(s+0.04)+'"><img src="'+f.agentPhoto.src+'" style="object-position:'+f.agentPhoto.ox+'% '+f.agentPhoto.oy+'%;transform:scale('+f.agentPhoto.z+')"></div>':'';}
 function kineticDOM(b,f,s){var inner='';
  if(b.kind==='khook'){
    inner='<div class="ph">'+phInner(b.src,b.mat)+'</div><div class="kwrap kh"><div class="khl pop" data-cue="'+(s+0.04)+'">'+esc(upc(b.label))+'</div>'+(b.sub?'<div class="khs pop" data-cue="'+(s+0.22)+'">'+esc(b.sub)+'</div>':'')+'</div>';
@@ -888,7 +892,7 @@ function kineticDOM(b,f,s){var inner='';
  }else if(b.kind==='kslam'){
    inner='<div class="ph">'+phInner(b.src,b.mat)+'</div><div class="kslamov"></div><div class="kwrap ksl">'+(b.price?'<div class="ksp pop" data-cue="'+(s+0.05)+'">'+esc(b.price)+'</div>':'')+(b.sub?'<div class="kss pop" data-cue="'+(s+0.28)+'">'+esc(b.sub)+'</div>':'')+'</div>';
  }else{
-   inner='<div class="kwrap kc"><div class="kck pop" data-cue="'+(s+0.05)+'">'+esc(b.cta)+'</div>'+(b.name?'<div class="kcn pop" data-cue="'+(s+0.22)+'">'+esc(b.name)+'</div>':'')+(b.phone?'<div class="kcp pop" data-cue="'+(s+0.36)+'">'+esc(b.phone)+'</div>':'')+'<div class="kcbtn pop" data-cue="'+(s+0.5)+'">Send a DM</div></div>';
+   inner='<div class="kwrap kc">'+avatarHTML(f,s)+'<div class="kck pop" data-cue="'+(s+0.05)+'">'+esc(b.cta)+'</div>'+(b.name?'<div class="kcn pop" data-cue="'+(s+0.22)+'">'+esc(b.name)+'</div>':'')+(b.phone?'<div class="kcp pop" data-cue="'+(s+0.36)+'">'+esc(b.phone)+'</div>':'')+'<div class="kcbtn pop" data-cue="'+(s+0.5)+'">Send a DM</div></div>';
  }
  return '<div class="beat b-'+b.kind+'" data-id="'+b.id+'">'+inner+'</div>';
 }
@@ -900,7 +904,7 @@ function storyDOM(b,f,s){var inner='';
  }else if(b.kind==='sprice'){
    inner='<div class="ph">'+phInner(b.src,b.mat)+'</div><div class="scin"></div><div class="swrap sp">'+(b.addr?'<div class="spa rise" data-cue="'+(s+0.4)+'">'+esc(b.addr)+'</div>':'')+(b.price?'<div class="spp rise" data-cue="'+(s+0.58)+'">'+esc(b.price)+'</div>':'')+(b.sub?'<div class="sps rise" data-cue="'+(s+0.78)+'">'+esc(b.sub)+'</div>':'')+'</div>';
  }else{
-   inner='<div class="swrap sc"><div class="sck rise" data-cue="'+(s+0.4)+'">'+esc(b.cta)+'</div>'+(b.name?'<div class="scn rise" data-cue="'+(s+0.62)+'">'+esc(b.name)+'</div>':'')+(b.phone?'<div class="scp rise" data-cue="'+(s+0.8)+'">'+esc(b.phone)+'</div>':'')+(b.addr?'<div class="sca rise" data-cue="'+(s+0.95)+'">'+esc(b.addr)+'</div>':'')+'</div>';
+   inner='<div class="swrap sc">'+avatarHTML(f,s)+'<div class="sck rise" data-cue="'+(s+0.4)+'">'+esc(b.cta)+'</div>'+(b.name?'<div class="scn rise" data-cue="'+(s+0.62)+'">'+esc(b.name)+'</div>':'')+(b.phone?'<div class="scp rise" data-cue="'+(s+0.8)+'">'+esc(b.phone)+'</div>':'')+(b.addr?'<div class="sca rise" data-cue="'+(s+0.95)+'">'+esc(b.addr)+'</div>':'')+'</div>';
  }
  return '<div class="beat b-'+b.kind+'" data-id="'+b.id+'">'+inner+'</div>';
 }
@@ -917,7 +921,7 @@ function numbersDOM(b,f,s){var inner='';
    b.highs.forEach(function(h,i){inner+='<div class="nhrow rise" data-cue="'+(s+0.4+i*0.26)+'"><span class="nhn">'+pad(i+1)+'</span><span>'+esc(h)+'</span></div>';});
    inner+='</div></div>';
  }else{
-   inner='<div class="nwrap nct"><div class="nck rise" data-cue="'+(s+0.2)+'">'+esc(b.cta)+'</div>'+(b.name?'<div class="ncn rise" data-cue="'+(s+0.4)+'">'+esc(b.name)+'</div>':'')+(b.phone?'<div class="ncp rise" data-cue="'+(s+0.56)+'">'+esc(b.phone)+'</div>':'')+'<div class="ncbtn pop" data-cue="'+(s+0.72)+'">Get the full breakdown</div></div>';
+   inner='<div class="nwrap nct">'+avatarHTML(f,s)+'<div class="nck rise" data-cue="'+(s+0.2)+'">'+esc(b.cta)+'</div>'+(b.name?'<div class="ncn rise" data-cue="'+(s+0.4)+'">'+esc(b.name)+'</div>':'')+(b.phone?'<div class="ncp rise" data-cue="'+(s+0.56)+'">'+esc(b.phone)+'</div>':'')+'<div class="ncbtn pop" data-cue="'+(s+0.72)+'">Get the full breakdown</div></div>';
  }
  return '<div class="beat b-'+b.kind+'" data-id="'+b.id+'">'+inner+'</div>';
 }
@@ -931,7 +935,7 @@ function revealDOM(b,f,s){var inner='';
  }else if(b.kind==='rprice'){
    inner='<div class="ph">'+phInner(b.src,b.mat)+'</div><div class="rvscrim rvpscrim"></div><div class="rvwrap rvp">'+(b.price?'<div class="rvpp rise" data-cue="'+(s+0.4)+'">'+esc(b.price)+'</div>':'')+(b.sub?'<div class="rvps rise" data-cue="'+(s+0.62)+'">'+esc(b.sub)+'</div>':'')+'</div>';
  }else{
-   inner='<div class="rvwrap rvc"><div class="rvck rise" data-cue="'+(s+0.35)+'">'+esc(b.cta)+'</div>'+(b.name?'<div class="rvcn rise" data-cue="'+(s+0.55)+'">'+esc(b.name)+'</div>':'')+(b.phone?'<div class="rvcp rise" data-cue="'+(s+0.7)+'">'+esc(b.phone)+'</div>':'')+'<div class="rvcbtn pop" data-cue="'+(s+0.85)+'">Send a DM</div></div>';
+   inner='<div class="rvwrap rvc">'+avatarHTML(f,s)+'<div class="rvck rise" data-cue="'+(s+0.35)+'">'+esc(b.cta)+'</div>'+(b.name?'<div class="rvcn rise" data-cue="'+(s+0.55)+'">'+esc(b.name)+'</div>':'')+(b.phone?'<div class="rvcp rise" data-cue="'+(s+0.7)+'">'+esc(b.phone)+'</div>':'')+'<div class="rvcbtn pop" data-cue="'+(s+0.85)+'">Send a DM</div></div>';
  }
  return '<div class="beat b-'+b.kind+'" data-id="'+b.id+'">'+inner+'</div>';
 }
@@ -943,7 +947,7 @@ function listDOM(b,f,s){var inner='';
  }else if(b.kind==='lprice'){
    inner='<div class="ph">'+phInner(b.src,b.mat)+'</div><div class="lrscrim"></div><div class="lwrap lp">'+(b.price?'<div class="lpp rise" data-cue="'+(s+0.35)+'">'+esc(b.price)+'</div>':'')+(b.sub?'<div class="lps rise" data-cue="'+(s+0.55)+'">'+esc(b.sub)+'</div>':'')+'</div>';
  }else{
-   inner='<div class="lwrap lc"><div class="lck rise" data-cue="'+(s+0.3)+'">'+esc(b.cta)+'</div>'+(b.name?'<div class="lcn rise" data-cue="'+(s+0.5)+'">'+esc(b.name)+'</div>':'')+(b.phone?'<div class="lcp rise" data-cue="'+(s+0.66)+'">'+esc(b.phone)+'</div>':'')+'<div class="lcbtn pop" data-cue="'+(s+0.82)+'">Save &amp; share</div></div>';
+   inner='<div class="lwrap lc">'+avatarHTML(f,s)+'<div class="lck rise" data-cue="'+(s+0.3)+'">'+esc(b.cta)+'</div>'+(b.name?'<div class="lcn rise" data-cue="'+(s+0.5)+'">'+esc(b.name)+'</div>':'')+(b.phone?'<div class="lcp rise" data-cue="'+(s+0.66)+'">'+esc(b.phone)+'</div>':'')+'<div class="lcbtn pop" data-cue="'+(s+0.82)+'">Save &amp; share</div></div>';
  }
  return '<div class="beat b-'+b.kind+'" data-id="'+b.id+'">'+inner+'</div>';
 }
@@ -955,13 +959,13 @@ function spotlightDOM(b,f,s){var inner='';
  }else if(b.kind==='spprice'){
    inner='<div class="ph">'+phInner(b.src,b.mat)+'</div><div class="spscrim sppscrim"></div><div class="spwrap spp">'+(b.price?'<div class="sppp rise" data-cue="'+(s+0.45)+'">'+esc(b.price)+'</div>':'')+(b.sub?'<div class="spps rise" data-cue="'+(s+0.65)+'">'+esc(b.sub)+'</div>':'')+'</div>';
  }else{
-   inner='<div class="spwrap spc"><div class="spck rise" data-cue="'+(s+0.4)+'">'+esc(b.cta)+'</div>'+(b.name?'<div class="spcn rise" data-cue="'+(s+0.6)+'">'+esc(b.name)+'</div>':'')+(b.phone?'<div class="spcp rise" data-cue="'+(s+0.76)+'">'+esc(b.phone)+'</div>':'')+'</div>';
+   inner='<div class="spwrap spc">'+avatarHTML(f,s)+'<div class="spck rise" data-cue="'+(s+0.4)+'">'+esc(b.cta)+'</div>'+(b.name?'<div class="spcn rise" data-cue="'+(s+0.6)+'">'+esc(b.name)+'</div>':'')+(b.phone?'<div class="spcp rise" data-cue="'+(s+0.76)+'">'+esc(b.phone)+'</div>':'')+'</div>';
  }
  return '<div class="beat b-'+b.kind+'" data-id="'+b.id+'">'+inner+'</div>';
 }
 function postcardDOM(b,f,s){var inner='',stamp='<div class="pcstamp"><span></span></div>';
  if(b.kind==='pccta'){
-   inner='<div class="pccard pctext">'+stamp+'<div class="pcc"><div class="pcck rise" data-cue="'+(s+0.4)+'">'+esc(b.cta)+'</div>'+(b.name?'<div class="pccn rise" data-cue="'+(s+0.6)+'">'+esc(b.name)+'</div>':'')+(b.phone?'<div class="pccp rise" data-cue="'+(s+0.76)+'">'+esc(b.phone)+'</div>':'')+(b.addr?'<div class="pcca rise" data-cue="'+(s+0.9)+'">'+esc(b.addr)+'</div>':'')+'</div></div>';
+   inner='<div class="pccard pctext">'+stamp+'<div class="pcc">'+avatarHTML(f,s)+'<div class="pcck rise" data-cue="'+(s+0.4)+'">'+esc(b.cta)+'</div>'+(b.name?'<div class="pccn rise" data-cue="'+(s+0.6)+'">'+esc(b.name)+'</div>':'')+(b.phone?'<div class="pccp rise" data-cue="'+(s+0.76)+'">'+esc(b.phone)+'</div>':'')+(b.addr?'<div class="pcca rise" data-cue="'+(s+0.9)+'">'+esc(b.addr)+'</div>':'')+'</div></div>';
  }else{
    var cap='';
    if(b.kind==='pchero')cap='<div class="pck rise" data-cue="'+(s+0.55)+'">Postcard from</div><div class="pca rise" data-cue="'+(s+0.72)+'">'+esc(b.addr||'')+'</div>';
@@ -980,7 +984,7 @@ function mosaicDOM(b,f,s){var inner='';
  }else if(b.kind==='mprice'){
    inner='<div class="ph">'+phInner(b.src,b.mat)+'</div><div class="mfscrim mpscrim"></div><div class="mfwrap mp">'+(b.price?'<div class="mpp rise" data-cue="'+(s+0.45)+'">'+esc(b.price)+'</div>':'')+(b.sub?'<div class="mps rise" data-cue="'+(s+0.65)+'">'+esc(b.sub)+'</div>':'')+'</div>';
  }else{
-   inner='<div class="mcwrap"><div class="mck rise" data-cue="'+(s+0.4)+'">'+esc(b.cta)+'</div>'+(b.name?'<div class="mcn rise" data-cue="'+(s+0.6)+'">'+esc(b.name)+'</div>':'')+(b.phone?'<div class="mcp rise" data-cue="'+(s+0.76)+'">'+esc(b.phone)+'</div>':'')+'</div>';
+   inner='<div class="mcwrap">'+avatarHTML(f,s)+'<div class="mck rise" data-cue="'+(s+0.4)+'">'+esc(b.cta)+'</div>'+(b.name?'<div class="mcn rise" data-cue="'+(s+0.6)+'">'+esc(b.name)+'</div>':'')+(b.phone?'<div class="mcp rise" data-cue="'+(s+0.76)+'">'+esc(b.phone)+'</div>':'')+'</div>';
  }
  return '<div class="beat b-'+b.kind+'" data-id="'+b.id+'">'+inner+'</div>';
 }
