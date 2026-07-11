@@ -1562,6 +1562,13 @@ window.exportReelFast = async function(boxId, opts){
       await window.exportReelFast(box,{fps:30, download:true, filename:'propsight-reel',
         onProgress:function(pct,label){ bar.style.width=Math.round(pct*100)+'%'; if(label)msg.textContent=label+'…'; }});
       barWrap.style.display='none';
+      // anonymous alert ping (format/style/device only — no photos, no personal data)
+      try{
+        var FL={listing:'New Listing',sold:'Just Sold',launch:'New Launch',openhouse:'Open House',pricedrop:'Price Drop',rent:'For Rent',rented:'Just Rented',comingsoon:'Coming Soon'};
+        var er=document.getElementById('editReel'); er=er&&er._reel;
+        fetch('https://studio-alerts.propsightsg.workers.dev/',{method:'POST',headers:{'Content-Type':'application/json'},keepalive:true,
+          body:JSON.stringify({format:(window.S&&(FL[window.S.format]||window.S.format))||'?', style:(er&&er.st&&er.st.tmpl)||'?', device:isMobile?'mobile':'desktop'})}).catch(function(){});
+      }catch(e){}
       curURL=URL.createObjectURL(window.__reelFile);
       vid.src=curURL; vid.style.display=''; vid.play().catch(function(){});
       msg.textContent='Your video is ready';
