@@ -794,7 +794,7 @@ function buildList(push,ctx){
   var reasons=listReasons(f,cat);
   push({kind:'ltitle',src:P[0].src,dur:LTITLE,title:listTitle(cat,reasons.length),kick:R.kicker});
   reasons.forEach(function(rz,i){push({kind:'lreason',src:P[(i+1)%P.length].src,dur:LREASON,n:i+1,line:rz});});
-  push({kind:'lprice',src:P[Math.min(1,P.length-1)].src,dur:LPRICE,price:R.coverPrice(f)||esc(f.address||''),sub:R.coverSub(f)});
+  push({kind:'lprice',src:P[Math.min(1,P.length-1)].src,dur:LPRICE,price:bigPrice(f,cat)||esc(f.address||''),sub:R.coverSub(f)});
   push({kind:'lcta',dur:LCTA,cta:R.endKick,name:f.name||f.address,phone:f.phone});
 }
 function buildSpotlight(push,ctx){
