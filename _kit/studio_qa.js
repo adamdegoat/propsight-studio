@@ -84,7 +84,7 @@ function rec(dim,name,ok,note){RESULTS.push({dim,name,ok:!!ok,note:note||''});}
  // D6 menu + modals
  await ev(`el("menuBtn").click()`);await sleep(300);
  rec('3 functional','menu opens', await ev(`!document.getElementById("menu").classList.contains("hidden")`));
- await ev(`var a=[].slice.call(document.querySelectorAll(".menuov a")).find(function(x){return /How to save/.test(x.textContent);});if(a)a.click();`);await sleep(400);
+ await ev(`var a=[].slice.call(document.querySelectorAll(".menuov a")).find(function(x){return /How it works/.test(x.textContent);});if(a)a.click();`);await sleep(400);
  rec('3 functional','How-to modal opens', await ev(`!el("howtoModal").hidden`));
  await ev(`document.querySelector("#howtoModal [data-close]").click()`);await sleep(200);
  rec('3 functional','modal closes', await ev(`el("howtoModal").hidden`));
