@@ -928,15 +928,15 @@ function beatDOM(b,f){
     inner='<div class="cframe"><div class="ph">'+phInner(b.src,b.mat)+'</div></div>';
     inner+='<div class="ckick rise" data-cue="'+(s+0.2)+'">'+esc(Rc.kicker)+'</div>';
     if(f.address)inner+='<div class="caddr rise" data-cue="'+(s+0.35)+'"><span class="tk"></span><span>'+esc(f.address)+'</span></div>';
-    inner+='<div class="cpage">'+b.page+'</div>';
+
     if(Rc.stamp)inner+='<div class="stamp rise" data-cue="'+(s+0.5)+'">'+esc(Rc.stamp)+'</div>';
     var pr=Rc.coverPrice(f),sub=Rc.coverSub(f);
     inner+='<div class="cbot"><div class="crule draw" data-cue="'+(s+0.55)+'"></div>'+(pr?'<div class="cprice rise" data-cue="'+(s+0.65)+'">'+esc(pr)+'</div>':'')+(sub?'<div class="csub rise" data-cue="'+(s+0.85)+'">'+esc(sub)+'</div>':'')+'</div>';
   }else if(b.kind==='tour'){
-    inner='<div class="ph">'+phInner(b.src,b.mat)+'</div><div class="rband">'+(b.caption?'<div class="rlabel rise" data-cue="'+(s+0.3)+'"><span class="tk"></span><span class="tx">'+esc(b.caption)+'</span></div>':'<span></span>')+'<div class="rpage">'+b.page+'</div></div>';
+    inner='<div class="ph">'+phInner(b.src,b.mat)+'</div><div class="rband">'+(b.caption?'<div class="rlabel rise" data-cue="'+(s+0.3)+'"><span class="tk"></span><span class="tx">'+esc(b.caption)+'</span></div>':'<span></span>')+'</div>';
   }else if(b.kind==='facts'){
     var Rf=RECIPES[b.cat]||RECIPES.listing;
-    inner='<div class="ph">'+phInner(b.src,b.mat)+'</div><div class="fkick rise" data-cue="'+(s+0.25)+'">'+esc(Rf.factsKick||'The Details')+'</div><div class="frule draw" data-cue="'+(s+0.35)+'"></div><div class="fpg">'+b.page+'</div><div class="fpanel">';
+    inner='<div class="ph">'+phInner(b.src,b.mat)+'</div><div class="fkick rise" data-cue="'+(s+0.25)+'">'+esc(Rf.factsKick||'The Details')+'</div><div class="frule draw" data-cue="'+(s+0.35)+'"></div><div class="fpanel">';
     var rows=Rf.facts(f),cc=0.5,sh=0;
     rows.forEach(function(r){if(r[1]&&sh<6){inner+='<div class="frow rise" data-cue="'+(s+cc)+'"><span>'+esc(r[0])+'</span><b>'+esc(r[1])+'</b></div>';cc+=0.14;sh++;}});inner+='</div>';
   }else if(b.kind==='high'){
