@@ -1,5 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='2.5' y='2.5' width='19' height='19' rx='5.5' fill='%23d6482f'/%3E%3Ccircle cx='12' cy='12' r='5.2' fill='none' stroke='%23fff' stroke-width='2'/%3E%3Ccircle cx='12' cy='12' r='1.5' fill='%23fff'/%3E%3C/svg%3E">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="theme-color" content="#0a0a0a">
 <meta name="description" content="Turn your listing photos into scroll-stopping property reels for Instagram. New styles added regularly, across 9 concepts. Free for a limited time.">
 <meta property="og:type" content="website">
@@ -660,9 +661,9 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
   <div class="stageP" id="presentStage"></div>
   <div class="pover" id="pPrep"><div class="povin">
     <div class="povk">Record your reel</div>
-    <ol class="povsteps"><li>Open Control Centre and tap the <b>screen-record</b> circle</li><li>Come back here, tap <b>Play once</b></li><li>It plays through once &mdash; then stop your recording</li></ol>
+    <ol class="povsteps" id="povSteps"><li>Open Control Centre and tap the <b>screen-record</b> circle</li><li>Come back here, tap <b>Play once</b></li><li>It plays through once &mdash; then stop your recording</li></ol>
     <button class="povbtn" id="pStart">Play once</button>
-    <div class="povnote">Your screen recording saves straight to Photos, ready to post to Instagram. Tap the screen anytime to stop.</div>
+    <div class="povnote" id="povNote">Your screen recording saves straight to Photos, ready to post to Instagram. Tap the screen anytime to stop.</div>
   </div></div>
   <div class="pcount" id="pCount" hidden><span id="pCountN">3</span></div>
   <div class="pover pdone" id="pDone" hidden><div class="povin">
@@ -1298,8 +1299,27 @@ function setPresentReady(ok){var b=el('toPresent');if(!b)return;b.disabled=!ok;b
 el('toPresent').onclick=function(){if(!S.photos||S.photos.length<MINP){setPresentReady(false);return;}openPresent();};
 var pTimer=null;
 function pClearTimer(){if(pTimer){clearTimeout(pTimer);pTimer=null;}}
+function setRecordSteps(){
+  var ua=navigator.userAgent||'';
+  var isIOS=/iPad|iPhone|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1);
+  var isAndroid=/Android/.test(ua);
+  var steps,note;
+  if(isIOS){
+    steps=['Open Control Centre and tap the <b>screen-record</b> circle','Come back here, tap <b>Play once</b>','It plays through once &mdash; then stop your recording'];
+    note='Your screen recording saves straight to Photos, ready to post to Instagram. Tap the screen anytime to stop.';
+  }else if(isAndroid){
+    steps=['Open Quick Settings and tap <b>Screen record</b>','Come back here, tap <b>Play once</b>','It plays through once &mdash; then stop your recording'];
+    note='Your screen recording saves to your gallery, ready to post to Instagram. Tap the screen anytime to stop.';
+  }else{
+    var mac=/Mac/.test(ua);
+    steps=['Start a screen recording &mdash; '+(mac?'<b>Shift + Cmd + 5</b>':'<b>Win + Alt + R</b>')+' &mdash; and capture this video','Tap <b>Play once</b>','It plays through once &mdash; then stop your recording'];
+    note='Easiest on your phone — open studio.propsight.sg there and screen-record for a clean full-screen capture. Tap the screen anytime to stop.';
+  }
+  var ol=el('povSteps'); if(ol)ol.innerHTML=steps.map(function(s){return '<li>'+s+'</li>';}).join('');
+  var nt=el('povNote'); if(nt)nt.innerHTML=note;
+}
 function openPresent(){
-  el('present').hidden=false;el('present').classList.remove('recording');pauseAll();pClearTimer();
+  el('present').hidden=false;el('present').classList.remove('recording');pauseAll();pClearTimer();setRecordSteps();
   try{var pv=el('present');if(pv.requestFullscreen)pv.requestFullscreen().catch(function(){});}catch(e){}
   presentR=Reel(el('presentStage'),{template:S.template,spec:editorSpec,once:true,autoplay:false,
     onend:function(){el('present').classList.remove('recording');el('pDone').hidden=false;}});
