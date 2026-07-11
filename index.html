@@ -1126,7 +1126,7 @@ function show(view,push){
   currentView=view;
   Object.keys(views).forEach(function(k){views[k].classList.toggle('hidden',k!==view);});
   el('back').classList.toggle('off',view==='home');
-  window.scrollTo(0,0);
+  window.scrollTo(0,0);try{document.body.scrollTop=0;document.documentElement.scrollTop=0;}catch(e){}
   pauseAll();
   if(view!=='gallery')galDestroyReels();
   if(view==='home'){ setCtx(''); if(homeR){homeR._eligible=true;syncReel(homeR);} homePvReels.forEach(function(r){r._eligible=true;syncReel(r);}); }
