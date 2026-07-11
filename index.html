@@ -715,6 +715,8 @@ function digits(v){return (v||'').replace(/[^0-9]/g,'');}
 function fmtPrice(v){v=(v||'').trim();if(!v)return '';if(/[a-z]/i.test(v))return v[0]==='$'?v:('$'+v);var d=digits(v);return d?('$'+Number(d).toLocaleString('en-US')):v;}
 function psf(f){var pd=/[a-z]/i.test(f.price||'')?'':digits(f.price),sd=digits(f.sqft);if(pd&&sd&&+sd>0)return '$'+Math.round(+pd/+sd).toLocaleString('en-US')+' psf';return '';}
 function coverSub(f){var a=[];if(f.beds)a.push(f.beds+(/^\d+$/.test(f.beds)?' bed':''));if(f.sqft)a.push(digits(f.sqft)+' sqft');var p=psf(f);if(p)a.push(p);else if(f.tenure)a.push(f.tenure);return a.join('   ·   ');}
+/* price for the dramatic price beat: shows the (sold) price too, unlike the cover which hides it for the SOLD stamp */
+function bigPrice(f,cat){var p=fmtPrice(f.price);if(!p)return '';return cat==='launch'?('From '+p):p;}
 function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function pad(n){return (n<10?'0':'')+n;}
 function phInner(src,mat){return '<div class="phm" style="background:'+(mat||'var(--paper)')+'"></div><div class="bg" style="background-image:url('+src+')"></div><div class="fg" style="background-image:url('+src+')"></div>';}
@@ -752,7 +754,7 @@ function buildKinetic(push,ctx){
   var stats=kStats(f,cat), flashP=P.length>=2?P.slice(1):P, n=Math.min(flashP.length,5);
   for(var i=0;i<n;i++){var s=stats.length?stats[i%stats.length]:null;
     push({kind:'kflash',src:flashP[i].src,dur:KFLASH,big:s?s.big:'',small:s?s.small:'',idx:i});}
-  push({kind:'kslam',src:P[0].src,dur:KSLAM,price:R.coverPrice(f)||esc(f.address||''),sub:R.coverSub(f)});
+  push({kind:'kslam',src:P[0].src,dur:KSLAM,price:bigPrice(f,cat)||esc(f.address||''),sub:R.coverSub(f)});
   push({kind:'kcta',dur:KCTA,cta:R.endKick,name:f.name||f.address,phone:f.phone});
 }
 function buildStory(push,ctx){
@@ -760,7 +762,7 @@ function buildStory(push,ctx){
   push({kind:'shook',src:P[0].src,dur:SHOOK,line:storyHook(f,cat)});
   var rooms=P.length>=2?P.slice(1):P, n=Math.min(rooms.length,5);
   for(var i=0;i<n;i++)push({kind:'sroom',src:rooms[i].src,dur:SROOM,caption:rooms[i].room||'',line:roomLine(rooms[i].room,i)});
-  push({kind:'sprice',src:P[0].src,dur:SPRICE,price:R.coverPrice(f),sub:R.coverSub(f),addr:f.address});
+  push({kind:'sprice',src:P[0].src,dur:SPRICE,price:bigPrice(f,cat),sub:R.coverSub(f),addr:f.address});
   push({kind:'scta',dur:SCTA,cta:R.endKick,name:f.name,phone:f.phone,addr:f.address});
 }
 function buildNumbers(push,ctx){
@@ -777,7 +779,7 @@ function buildReveal(push,ctx){
   push({kind:'rhero',src:P[0].src,dur:RHERO,kick:R.kicker,addr:f.address});
   var shots=P.slice(1),n=Math.min(shots.length,3);
   for(var i=0;i<n;i++)push({kind:'rshot',src:shots[i].src,dur:RSHOT,caption:shots[i].room||''});
-  push({kind:'rprice',src:P[Math.min(1,P.length-1)].src,dur:RPRICE,price:R.coverPrice(f)||esc(f.address||''),sub:R.coverSub(f)});
+  push({kind:'rprice',src:P[Math.min(1,P.length-1)].src,dur:RPRICE,price:bigPrice(f,cat)||esc(f.address||''),sub:R.coverSub(f)});
   push({kind:'rcta',dur:RCTA,cta:R.endKick,name:f.name||f.address,phone:f.phone});
 }
 function buildList(push,ctx){
@@ -793,7 +795,7 @@ function buildSpotlight(push,ctx){
   push({kind:'sphero',src:P[0].src,mat:P[0].mat,dur:SPHERO,kick:R.kicker,addr:f.address});
   var dets=spotDetails(f,cat), rest=P.slice(1), n=Math.min(rest.length,2);
   for(var i=0;i<n;i++)push({kind:'spdetail',src:rest[i].src,mat:rest[i].mat,dur:SPDET,word:dets[i]||dets[i%Math.max(dets.length,1)]||''});
-  push({kind:'spprice',src:P[0].src,mat:P[0].mat,dur:SPPRICE,price:R.coverPrice(f),sub:R.coverSub(f)});
+  push({kind:'spprice',src:P[0].src,mat:P[0].mat,dur:SPPRICE,price:bigPrice(f,cat),sub:R.coverSub(f)});
   push({kind:'spcta',dur:SPCTA,cta:R.endKick,name:f.name,phone:f.phone,addr:f.address});
 }
 function buildPostcard(push,ctx){
@@ -801,7 +803,7 @@ function buildPostcard(push,ctx){
   push({kind:'pchero',src:P[0].src,mat:P[0].mat,dur:PCHERO,kick:R.kicker,addr:f.address});
   var rest=P.slice(1),n=Math.min(rest.length,2);
   for(var i=0;i<n;i++)push({kind:'pcshot',src:rest[i].src,mat:rest[i].mat,dur:PCSHOT,caption:rest[i].room||''});
-  push({kind:'pcprice',src:P[0].src,mat:P[0].mat,dur:PCPRICE,price:R.coverPrice(f),sub:R.coverSub(f),addr:f.address});
+  push({kind:'pcprice',src:P[0].src,mat:P[0].mat,dur:PCPRICE,price:bigPrice(f,cat),sub:R.coverSub(f),addr:f.address});
   push({kind:'pccta',dur:PCCTA,cta:R.endKick,name:f.name,phone:f.phone,addr:f.address});
 }
 function buildMosaic(push,ctx){
@@ -809,7 +811,7 @@ function buildMosaic(push,ctx){
   var grid=P.slice(0,4).map(function(p){return {src:p.src,mat:p.mat};});
   push({kind:'mgrid',dur:MGRID,grid:grid,kick:R.kicker,addr:f.address});
   push({kind:'mfeat',src:P[0].src,mat:P[0].mat,dur:MFEAT,caption:P[0].room||'',label:R.coverSub(f)});
-  push({kind:'mprice',src:P[Math.min(1,P.length-1)].src,mat:P[Math.min(1,P.length-1)].mat,dur:MPRICE,price:R.coverPrice(f),sub:R.coverSub(f)});
+  push({kind:'mprice',src:P[Math.min(1,P.length-1)].src,mat:P[Math.min(1,P.length-1)].mat,dur:MPRICE,price:bigPrice(f,cat),sub:''});
   push({kind:'mcta',dur:MCTA,cta:R.endKick,name:f.name,phone:f.phone,addr:f.address});
 }
 /* ---- concept content helpers ---- */
