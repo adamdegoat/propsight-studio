@@ -390,6 +390,16 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
 .cc-editorial .emeta{font-family:var(--mono);font-size:12px;color:var(--rmid);margin-top:9px}
 .cc-editorial .ebtn{margin-top:22px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--paper);background:var(--rac);padding:12px 22px;border-radius:999px}
 .reel,.reel *{-webkit-font-synthesis:none;font-synthesis:none}
+/* IG-safe: lift bottom-anchored text out of the ~15% IG Reels/feed covers */
+.reel .cbot{transform:translateY(-64px)}
+.reel .rband{transform:translateY(-62px)}
+.reel.cc-kinetic .kwrap{padding-bottom:92px}
+.reel.cc-story .swrap{padding-bottom:92px}
+.reel.cc-mosaic .mfwrap{padding-bottom:92px}
+.reel.cc-numbers .ntt{bottom:92px}
+.reel.cc-reveal .rvh{bottom:88px}.reel.cc-reveal .rvs{bottom:88px}.reel.cc-reveal .rvp{bottom:90px}
+.reel.cc-list .lt{bottom:90px}.reel.cc-list .lr{bottom:88px}.reel.cc-list .lp{bottom:90px}
+.reel.cc-spotlight .sph{bottom:100px}.reel.cc-spotlight .spp{bottom:100px}
 .tmpl-atlas .ebtn,.tmpl-mono .ebtn,.tmpl-vivid .ebtn,.tmpl-prism .ebtn,.tmpl-nocturne .ebtn,.tmpl-noir .ebtn{color:#fff}
 /* ===== KINETIC ===== */
 .cc-kinetic .ph{position:absolute;inset:0}
@@ -947,7 +957,7 @@ function numStats(f,cat){var o=[];function num(v){return (String(v||'').replace(
   if(cat==='rent'){var rp=parseAmt(f.price);if(rp)o.push({to:+rp,prefix:'$',suffix:' /mo',fmt:'comma',label:'monthly rent'});if(f.beds)o.push({to:+num(f.beds),fmt:'int',label:'bedrooms'});if(num(f.sqft))o.push({to:+num(f.sqft),suffix:' sqft',fmt:'comma',label:'floor area'});if(f.furnishing)o.push({text:f.furnishing,label:'furnishing'});return o;}
   if(cat==='rented'){var rdp=parseAmt(f.price);if(rdp)o.push({to:+rdp,prefix:'$',suffix:' /mo',fmt:'comma',label:'rented at'});if(num(f.sqft))o.push({to:+num(f.sqft),suffix:' sqft',fmt:'comma',label:'floor area'});if(f.days)o.push({to:+num(f.days),fmt:'int',label:'days to let'});return o;}
   if(cat==='comingsoon'){if(f.launchdate)o.push({text:f.launchdate,label:'launching'});var cp=parseAmt(f.price);if(cp)o.push({to:+cp,prefix:'$',fmt:'comma',label:'priced from'});if(f.beds)o.push({to:+num(f.beds),fmt:'int',label:'bedrooms'});if(num(f.sqft))o.push({to:+num(f.sqft),suffix:' sqft',fmt:'comma',label:'floor area'});return o;}
-  var pr=parseAmt(f.price);if(pr)o.push({to:+pr,prefix:'$',fmt:'comma',label:'asking price'});var p=psf(f);if(p)o.push({to:+num(p),prefix:'$',suffix:' psf',fmt:'comma',label:'per sq ft'});if(f.beds)o.push({to:+num(f.beds),fmt:'int',label:'bedrooms'});if(num(f.sqft))o.push({to:+num(f.sqft),suffix:' sqft',fmt:'comma',label:'floor area'});return o;}
+  var pr=parseAmt(f.price);if(pr)o.push({to:+pr,prefix:'$',fmt:'comma',label:'asking price'});var p=psf(f);if(p)o.push({to:+num(p),prefix:'$',suffix:'',fmt:'comma',label:'per sq ft'});if(f.beds)o.push({to:+num(f.beds),fmt:'int',label:'bedrooms'});if(num(f.sqft))o.push({to:+num(f.sqft),suffix:' sqft',fmt:'comma',label:'floor area'});return o;}
 function fmtNum(v,fmt){if(fmt==='comma')return Math.round(v).toLocaleString('en-US');if(fmt==='dec1')return (Math.round(v*10)/10).toString();return Math.round(v).toString();}
 function beatDOM(b,f){
   var s=b.s,inner='';
