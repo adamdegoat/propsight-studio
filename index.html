@@ -580,12 +580,12 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
     <div class="rule"></div>
     <div class="showcase"><div class="eye">Save and share</div><div class="showtitle">Tap Save, and your video is ready.</div><div class="showbody">Your reel renders right on your phone in seconds, then save it straight to your camera roll or share it to Instagram. No editing, no screen-recording, no watermark.</div></div>
     <div class="rule"></div>
-    <div class="sec-h"><div class="eye">What are you making?</div><div class="eyd" id="scount">25 styles &middot; 9 concepts</div></div>
+    <div class="sec-h"><div class="eye">What are you making?</div><div class="eyd" id="scount">8 formats &middot; a growing library</div></div>
     <div class="formats" id="formats"></div>
     <div class="rule"></div>
     <div class="sec-h"><div class="eye">How it works</div><div class="eyd">About a minute</div></div>
     <div class="steps">
-      <div class="step"><div class="n">01</div><div class="tx">Pick a style<small id="scopy">25 styles across 9 concepts &mdash; Editorial, Kinetic, Story and more. Switch anytime, no retyping.</small></div></div>
+      <div class="step"><div class="n">01</div><div class="tx">Pick a style<small id="scopy">A growing library of styles across 9 concepts. Editorial, Kinetic, Story and more. Switch anytime, no retyping.</small></div></div>
       <div class="step"><div class="n">02</div><div class="tx">Add your listing photos<small>Straight from your camera roll. Label the rooms, fill the details.</small></div></div>
       <div class="step"><div class="n">03</div><div class="tx">Save and post<small>Tap Save, your video is ready in seconds. Drop it on Instagram and add a track. Done.</small></div></div>
     </div>
@@ -612,7 +612,7 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
           <button class="samplebtn" id="sampleBtn" type="button">Use sample photos</button>
           <div class="thumbs" id="thumbs"></div>
           <div class="hint" id="phint">No photos yet. Tap a photo after adding to set the cover or label the room.</div>
-          <div class="agentphoto"><div class="apv" id="apv"></div><button class="apbtn" id="apAdd" type="button">Add your photo</button><span class="aphint">Your headshot &mdash; shows on the end card</span><input type="file" id="apFile" accept="image/*" hidden></div>
+          <div class="agentphoto"><div class="apv" id="apv"></div><button class="apbtn" id="apAdd" type="button">Add your photo</button><span class="aphint">Your headshot, shown on the end card</span><input type="file" id="apFile" accept="image/*" hidden></div>
         </div>
         <div class="sec"><div class="lbl">2 · The details</div><div class="stack" id="detailFields"></div></div>
         <div class="sec"><div class="lbl" id="highLbl">3 · Highlights (up to 3)</div><div class="stack">
@@ -630,7 +630,7 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
         <div class="styleswitch" id="styleSwitch"></div>
         <div class="frame"><div class="reelbox" id="editReel"></div></div>
         <div class="ctrls"><button class="pbtn" id="ePlay">Play</button><div class="pbar"><i id="eProg"></i></div></div>
-        <div class="readout" id="eReadout">—</div>
+        <div class="readout" id="eReadout"></div>
         <div class="musichint" id="musicHint"></div>
         <button class="makebtn" id="toPresent">Save your video</button>
       </div>
@@ -658,7 +658,7 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
 </div></div>
 
 <!-- CROP -->
-<div class="cropov" id="cropov" hidden><div class="cropcard"><div class="st">Frame your photo &mdash; drag &amp; zoom</div><div class="cropview" id="cropview"><img id="cropimg"></div><input type="range" id="cropzoom" min="100" max="260" value="100" class="zoom"><div class="srow"><button class="sbtn cover" id="cropUse">Use photo</button><button class="sbtn" id="cropCancel">Cancel</button></div></div></div>
+<div class="cropov" id="cropov" hidden><div class="cropcard"><div class="st">Frame your photo: drag &amp; zoom</div><div class="cropview" id="cropview"><img id="cropimg"></div><input type="range" id="cropzoom" min="100" max="260" value="100" class="zoom"><div class="srow"><button class="sbtn cover" id="cropUse">Use photo</button><button class="sbtn" id="cropCancel">Cancel</button></div></div></div>
 
 <!-- PRESENT -->
 <div class="present" id="present" hidden>
@@ -666,13 +666,13 @@ input.i:focus{outline:none;border-color:var(--acc)}input.i::placeholder{color:#b
   <div class="stageP" id="presentStage"></div>
   <div class="pover" id="pPrep"><div class="povin">
     <div class="povk">Record your reel</div>
-    <ol class="povsteps" id="povSteps"><li>Open Control Centre and tap the <b>screen-record</b> circle</li><li>Come back here, tap <b>Play once</b></li><li>It plays through once &mdash; then stop your recording</li></ol>
+    <ol class="povsteps" id="povSteps"><li>Open Control Centre and tap the <b>screen-record</b> circle</li><li>Come back here, tap <b>Play once</b></li><li>It plays through once, then stop your recording</li></ol>
     <button class="povbtn" id="pStart">Play once</button>
     <div class="povnote" id="povNote">Your screen recording saves straight to Photos, ready to post to Instagram. Tap the screen anytime to stop.</div>
   </div></div>
   <div class="pcount" id="pCount" hidden><span id="pCountN">3</span></div>
   <div class="pover pdone" id="pDone" hidden><div class="povin">
-    <div class="povcheck">&#10003;</div>
+    <div class="povcheck"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>
     <div class="povk">Stop your screen recording</div>
     <div class="povnote">It&rsquo;s saved to Photos. Post it to Instagram and add a music track.</div>
     <button class="povbtn light" id="pReplay">Record again</button>
@@ -1185,8 +1185,8 @@ el('menuCls').onclick=function(){el('menu').classList.add('hidden');};
 /* home */
 function buildHome(){
   var _ns=TPL.length,_nc=CONCEPT_ORDER.length;
-  if(el('scount'))el('scount').innerHTML=FORMATS.filter(function(f){return f.active;}).length+' formats · '+_ns+' styles';
-  if(el('scopy'))el('scopy').innerHTML=_ns+' styles across '+_nc+' concepts. Editorial, Kinetic, Story and more. Switch anytime, no retyping.';
+  if(el('scount'))el('scount').innerHTML=FORMATS.filter(function(f){return f.active;}).length+' formats · a growing library';
+  if(el('scopy'))el('scopy').innerHTML='A growing library of styles across '+_nc+' concepts. Editorial, Kinetic, Story and more. Switch anytime, no retyping.';
   homeR=Reel(el('homeReel'),{template:'noir',autoplay:false,spec:previewSpec(2,'listing')});observeReel(el('homeReel'),homeR);
   var box=el('formats');box.innerHTML='';
   FORMATS.forEach(function(fm){
@@ -1310,14 +1310,14 @@ function setRecordSteps(){
   var isAndroid=/Android/.test(ua);
   var steps,note;
   if(isIOS){
-    steps=['Open Control Centre and tap the <b>screen-record</b> circle','Come back here, tap <b>Play once</b>','It plays through once &mdash; then stop your recording'];
+    steps=['Open Control Centre and tap the <b>screen-record</b> circle','Come back here, tap <b>Play once</b>','It plays through once, then stop your recording'];
     note='Your screen recording saves straight to Photos, ready to post to Instagram. Tap the screen anytime to stop.';
   }else if(isAndroid){
-    steps=['Open Quick Settings and tap <b>Screen record</b>','Come back here, tap <b>Play once</b>','It plays through once &mdash; then stop your recording'];
+    steps=['Open Quick Settings and tap <b>Screen record</b>','Come back here, tap <b>Play once</b>','It plays through once, then stop your recording'];
     note='Your screen recording saves to your gallery, ready to post to Instagram. Tap the screen anytime to stop.';
   }else{
     var mac=/Mac/.test(ua);
-    steps=['Start a screen recording &mdash; '+(mac?'<b>Shift + Cmd + 5</b>':'<b>Win + Alt + R</b>')+' &mdash; and capture this video','Tap <b>Play once</b>','It plays through once &mdash; then stop your recording'];
+    steps=['Start a screen recording with '+(mac?'<b>Shift + Cmd + 5</b>':'<b>Win + Alt + R</b>')+', and capture this video','Tap <b>Play once</b>','It plays through once, then stop your recording'];
     note='Easiest on your phone: open studio.propsight.sg there and screen-record for a clean full-screen capture. Tap the screen anytime to stop.';
   }
   var ol=el('povSteps'); if(ol)ol.innerHTML=steps.map(function(s){return '<li>'+s+'</li>';}).join('');
@@ -1562,7 +1562,7 @@ window.exportReelFast = async function(boxId, opts){
       await window.exportReelFast(box,{fps:30, download:true, filename:'propsight-reel',
         onProgress:function(pct,label){ bar.style.width=Math.round(pct*100)+'%'; if(label)msg.textContent=label+'…'; }});
       barWrap.style.display='none';
-      // anonymous alert ping (format/style/device only — no photos, no personal data)
+      // anonymous alert ping (format/style/device only, no photos, no personal data)
       try{
         var FL={listing:'New Listing',sold:'Just Sold',launch:'New Launch',openhouse:'Open House',pricedrop:'Price Drop',rent:'For Rent',rented:'Just Rented',comingsoon:'Coming Soon'};
         var er=document.getElementById('editReel'); er=er&&er._reel;
