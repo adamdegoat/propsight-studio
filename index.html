@@ -1157,6 +1157,26 @@ function Reel(box,opts){
 /* ---------- app state + router ---------- */
 var S={photos:[],f:{},format:'listing',template:'folio',brand:true};
 var homeR=null, editR=null, tmplReels=[], presentR=null, homePvReels=[];
+// Hero cycles a few contrasting styles so the demo hooks AND shows the library's range.
+var HERO_STYLES=['pulse','marquee','ledger'];
+var heroIdx=0, heroTimer=null;
+function heroEligibleNow(){return homeR&&homeR._eligible&&homeR._vis!==false&&!document.hidden;}
+function heroMount(idx){
+  var box=el('homeReel'); if(!box)return;
+  if(homeR&&homeR.destroy){try{homeR.destroy();}catch(e){}}
+  homeR=Reel(box,{template:HERO_STYLES[idx%HERO_STYLES.length],autoplay:false,spec:previewSpec(2,'listing')});
+  homeR._eligible=true; observeReel(box,homeR); syncReel(homeR);
+  clearTimeout(heroTimer);
+  // Play the FULL reel arc (cover -> price -> end card) plus a brief hold, then rotate.
+  var cap=((homeR.st&&homeR.st.total)||12)+1.2;
+  heroTimer=setTimeout(heroAdvance, cap*1000);
+}
+function heroAdvance(){
+  clearTimeout(heroTimer);
+  if(!heroEligibleNow()){ heroTimer=setTimeout(heroAdvance,1000); return; }
+  var box=el('homeReel'); box.style.transition='opacity .45s ease'; box.style.opacity='0';
+  setTimeout(function(){ heroIdx=(heroIdx+1)%HERO_STYLES.length; heroMount(heroIdx); box.style.opacity='1'; },450);
+}
 /* heat guard: a preview reel animates only when it is BOTH in the active view (_eligible) and on screen (_vis) and the tab is visible */
 function syncReel(r){if(!r||!r.st)return;var on=r._eligible&&r._vis!==false&&!document.hidden;if(on){if(!r.st.playing)r.play();}else{if(r.st.playing)r.pause();}}
 var _io=('IntersectionObserver'in window)?new IntersectionObserver(function(es){es.forEach(function(e){var r=e.target._reelRef;if(r){r._vis=e.isIntersecting;syncReel(r);}});},{threshold:0.15}):null;
@@ -1205,7 +1225,7 @@ function buildHome(){
   var _ns=TPL.length,_nc=CONCEPT_ORDER.length;
   if(el('scount'))el('scount').innerHTML=FORMATS.filter(function(f){return f.active;}).length+' formats · a growing library';
   if(el('scopy'))el('scopy').innerHTML='A growing library of styles across '+_nc+' concepts. Editorial, Kinetic, Story and more. Switch anytime, no retyping.';
-  homeR=Reel(el('homeReel'),{template:'noir',autoplay:false,spec:previewSpec(2,'listing')});observeReel(el('homeReel'),homeR);
+  heroMount(0);
   var box=el('formats');box.innerHTML='';
   FORMATS.forEach(function(fm){
     var b=document.createElement('button');b.className='fcard'+(fm.active?'':' soon');
